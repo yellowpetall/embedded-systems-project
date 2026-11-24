@@ -1,0 +1,3483 @@
+{
+ "name": "Generated lot - 200 spots",
+ "tick_hz": 20,
+ "sensor_active_low": true,
+ "expanders": [
+  {
+   "name": "mcp0",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x20"
+  },
+  {
+   "name": "mcp1",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x21"
+  },
+  {
+   "name": "mcp2",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x22"
+  },
+  {
+   "name": "mcp3",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x23"
+  },
+  {
+   "name": "mcp4",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x24"
+  },
+  {
+   "name": "mcp5",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x25"
+  },
+  {
+   "name": "mcp6",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x26"
+  },
+  {
+   "name": "mcp7",
+   "type": "mcp23017",
+   "bus": 1,
+   "address": "0x27"
+  },
+  {
+   "name": "mcp8",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x20"
+  },
+  {
+   "name": "mcp9",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x21"
+  },
+  {
+   "name": "mcp10",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x22"
+  },
+  {
+   "name": "mcp11",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x23"
+  },
+  {
+   "name": "mcp12",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x24"
+  },
+  {
+   "name": "mcp13",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x25"
+  },
+  {
+   "name": "mcp14",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x26"
+  },
+  {
+   "name": "mcp15",
+   "type": "mcp23017",
+   "bus": 11,
+   "address": "0x27"
+  },
+  {
+   "name": "mcp16",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x20"
+  },
+  {
+   "name": "mcp17",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x21"
+  },
+  {
+   "name": "mcp18",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x22"
+  },
+  {
+   "name": "mcp19",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x23"
+  },
+  {
+   "name": "mcp20",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x24"
+  },
+  {
+   "name": "mcp21",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x25"
+  },
+  {
+   "name": "mcp22",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x26"
+  },
+  {
+   "name": "mcp23",
+   "type": "mcp23017",
+   "bus": 12,
+   "address": "0x27"
+  },
+  {
+   "name": "mcp24",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x20"
+  },
+  {
+   "name": "mcp25",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x21"
+  },
+  {
+   "name": "mcp26",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x22"
+  },
+  {
+   "name": "mcp27",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x23"
+  },
+  {
+   "name": "mcp28",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x24"
+  },
+  {
+   "name": "mcp29",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x25"
+  },
+  {
+   "name": "mcp30",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x26"
+  },
+  {
+   "name": "mcp31",
+   "type": "mcp23017",
+   "bus": 13,
+   "address": "0x27"
+  }
+ ],
+ "lane": {
+  "entrance": "C0",
+  "nodes": [
+   {
+    "id": "C0",
+    "led": "mcp0:A0",
+    "x": 0,
+    "y": 1
+   },
+   {
+    "id": "N0_1",
+    "led": "mcp0:A1",
+    "x": 1,
+    "y": 1
+   },
+   {
+    "id": "N0_2",
+    "led": "mcp0:A6",
+    "x": 2,
+    "y": 1
+   },
+   {
+    "id": "N0_3",
+    "led": "mcp0:B3",
+    "x": 3,
+    "y": 1
+   },
+   {
+    "id": "N0_4",
+    "led": "mcp1:A0",
+    "x": 4,
+    "y": 1
+   },
+   {
+    "id": "N0_5",
+    "led": "mcp1:A5",
+    "x": 5,
+    "y": 1
+   },
+   {
+    "id": "N0_6",
+    "led": "mcp1:B2",
+    "x": 6,
+    "y": 1
+   },
+   {
+    "id": "N0_7",
+    "led": "mcp1:B7",
+    "x": 7,
+    "y": 1
+   },
+   {
+    "id": "N0_8",
+    "led": "mcp2:A4",
+    "x": 8,
+    "y": 1
+   },
+   {
+    "id": "N0_9",
+    "led": "mcp2:B1",
+    "x": 9,
+    "y": 1
+   },
+   {
+    "id": "N0_10",
+    "led": "mcp2:B6",
+    "x": 10,
+    "y": 1
+   },
+   {
+    "id": "N0_11",
+    "led": "mcp3:A3",
+    "x": 11,
+    "y": 1
+   },
+   {
+    "id": "N0_12",
+    "led": "mcp3:B0",
+    "x": 12,
+    "y": 1
+   },
+   {
+    "id": "N0_13",
+    "led": "mcp3:B5",
+    "x": 13,
+    "y": 1
+   },
+   {
+    "id": "N0_14",
+    "led": "mcp4:A2",
+    "x": 14,
+    "y": 1
+   },
+   {
+    "id": "N0_15",
+    "led": "mcp4:A7",
+    "x": 15,
+    "y": 1
+   },
+   {
+    "id": "N0_16",
+    "led": "mcp4:B4",
+    "x": 16,
+    "y": 1
+   },
+   {
+    "id": "N0_17",
+    "led": "mcp5:A1",
+    "x": 17,
+    "y": 1
+   },
+   {
+    "id": "N0_18",
+    "led": "mcp5:A6",
+    "x": 18,
+    "y": 1
+   },
+   {
+    "id": "N0_19",
+    "led": "mcp5:B3",
+    "x": 19,
+    "y": 1
+   },
+   {
+    "id": "N0_20",
+    "led": "mcp6:A0",
+    "x": 20,
+    "y": 1
+   },
+   {
+    "id": "C1",
+    "led": "mcp6:A5",
+    "x": 0,
+    "y": 4
+   },
+   {
+    "id": "N1_1",
+    "led": "mcp6:A6",
+    "x": 1,
+    "y": 4
+   },
+   {
+    "id": "N1_2",
+    "led": "mcp6:B3",
+    "x": 2,
+    "y": 4
+   },
+   {
+    "id": "N1_3",
+    "led": "mcp7:A0",
+    "x": 3,
+    "y": 4
+   },
+   {
+    "id": "N1_4",
+    "led": "mcp7:A5",
+    "x": 4,
+    "y": 4
+   },
+   {
+    "id": "N1_5",
+    "led": "mcp7:B2",
+    "x": 5,
+    "y": 4
+   },
+   {
+    "id": "N1_6",
+    "led": "mcp7:B7",
+    "x": 6,
+    "y": 4
+   },
+   {
+    "id": "N1_7",
+    "led": "mcp8:A4",
+    "x": 7,
+    "y": 4
+   },
+   {
+    "id": "N1_8",
+    "led": "mcp8:B1",
+    "x": 8,
+    "y": 4
+   },
+   {
+    "id": "N1_9",
+    "led": "mcp8:B6",
+    "x": 9,
+    "y": 4
+   },
+   {
+    "id": "N1_10",
+    "led": "mcp9:A3",
+    "x": 10,
+    "y": 4
+   },
+   {
+    "id": "N1_11",
+    "led": "mcp9:B0",
+    "x": 11,
+    "y": 4
+   },
+   {
+    "id": "N1_12",
+    "led": "mcp9:B5",
+    "x": 12,
+    "y": 4
+   },
+   {
+    "id": "N1_13",
+    "led": "mcp10:A2",
+    "x": 13,
+    "y": 4
+   },
+   {
+    "id": "N1_14",
+    "led": "mcp10:A7",
+    "x": 14,
+    "y": 4
+   },
+   {
+    "id": "N1_15",
+    "led": "mcp10:B4",
+    "x": 15,
+    "y": 4
+   },
+   {
+    "id": "N1_16",
+    "led": "mcp11:A1",
+    "x": 16,
+    "y": 4
+   },
+   {
+    "id": "N1_17",
+    "led": "mcp11:A6",
+    "x": 17,
+    "y": 4
+   },
+   {
+    "id": "N1_18",
+    "led": "mcp11:B3",
+    "x": 18,
+    "y": 4
+   },
+   {
+    "id": "N1_19",
+    "led": "mcp12:A0",
+    "x": 19,
+    "y": 4
+   },
+   {
+    "id": "N1_20",
+    "led": "mcp12:A5",
+    "x": 20,
+    "y": 4
+   },
+   {
+    "id": "C2",
+    "led": "mcp12:B2",
+    "x": 0,
+    "y": 7
+   },
+   {
+    "id": "N2_1",
+    "led": "mcp12:B3",
+    "x": 1,
+    "y": 7
+   },
+   {
+    "id": "N2_2",
+    "led": "mcp13:A0",
+    "x": 2,
+    "y": 7
+   },
+   {
+    "id": "N2_3",
+    "led": "mcp13:A5",
+    "x": 3,
+    "y": 7
+   },
+   {
+    "id": "N2_4",
+    "led": "mcp13:B2",
+    "x": 4,
+    "y": 7
+   },
+   {
+    "id": "N2_5",
+    "led": "mcp13:B7",
+    "x": 5,
+    "y": 7
+   },
+   {
+    "id": "N2_6",
+    "led": "mcp14:A4",
+    "x": 6,
+    "y": 7
+   },
+   {
+    "id": "N2_7",
+    "led": "mcp14:B1",
+    "x": 7,
+    "y": 7
+   },
+   {
+    "id": "N2_8",
+    "led": "mcp14:B6",
+    "x": 8,
+    "y": 7
+   },
+   {
+    "id": "N2_9",
+    "led": "mcp15:A3",
+    "x": 9,
+    "y": 7
+   },
+   {
+    "id": "N2_10",
+    "led": "mcp15:B0",
+    "x": 10,
+    "y": 7
+   },
+   {
+    "id": "N2_11",
+    "led": "mcp15:B5",
+    "x": 11,
+    "y": 7
+   },
+   {
+    "id": "N2_12",
+    "led": "mcp16:A2",
+    "x": 12,
+    "y": 7
+   },
+   {
+    "id": "N2_13",
+    "led": "mcp16:A7",
+    "x": 13,
+    "y": 7
+   },
+   {
+    "id": "N2_14",
+    "led": "mcp16:B4",
+    "x": 14,
+    "y": 7
+   },
+   {
+    "id": "N2_15",
+    "led": "mcp17:A1",
+    "x": 15,
+    "y": 7
+   },
+   {
+    "id": "N2_16",
+    "led": "mcp17:A6",
+    "x": 16,
+    "y": 7
+   },
+   {
+    "id": "N2_17",
+    "led": "mcp17:B3",
+    "x": 17,
+    "y": 7
+   },
+   {
+    "id": "N2_18",
+    "led": "mcp18:A0",
+    "x": 18,
+    "y": 7
+   },
+   {
+    "id": "N2_19",
+    "led": "mcp18:A5",
+    "x": 19,
+    "y": 7
+   },
+   {
+    "id": "N2_20",
+    "led": "mcp18:B2",
+    "x": 20,
+    "y": 7
+   },
+   {
+    "id": "C3",
+    "led": "mcp18:B7",
+    "x": 0,
+    "y": 10
+   },
+   {
+    "id": "N3_1",
+    "led": "mcp19:A0",
+    "x": 1,
+    "y": 10
+   },
+   {
+    "id": "N3_2",
+    "led": "mcp19:A5",
+    "x": 2,
+    "y": 10
+   },
+   {
+    "id": "N3_3",
+    "led": "mcp19:B2",
+    "x": 3,
+    "y": 10
+   },
+   {
+    "id": "N3_4",
+    "led": "mcp19:B7",
+    "x": 4,
+    "y": 10
+   },
+   {
+    "id": "N3_5",
+    "led": "mcp20:A4",
+    "x": 5,
+    "y": 10
+   },
+   {
+    "id": "N3_6",
+    "led": "mcp20:B1",
+    "x": 6,
+    "y": 10
+   },
+   {
+    "id": "N3_7",
+    "led": "mcp20:B6",
+    "x": 7,
+    "y": 10
+   },
+   {
+    "id": "N3_8",
+    "led": "mcp21:A3",
+    "x": 8,
+    "y": 10
+   },
+   {
+    "id": "N3_9",
+    "led": "mcp21:B0",
+    "x": 9,
+    "y": 10
+   },
+   {
+    "id": "N3_10",
+    "led": "mcp21:B5",
+    "x": 10,
+    "y": 10
+   },
+   {
+    "id": "N3_11",
+    "led": "mcp22:A2",
+    "x": 11,
+    "y": 10
+   },
+   {
+    "id": "N3_12",
+    "led": "mcp22:A7",
+    "x": 12,
+    "y": 10
+   },
+   {
+    "id": "N3_13",
+    "led": "mcp22:B4",
+    "x": 13,
+    "y": 10
+   },
+   {
+    "id": "N3_14",
+    "led": "mcp23:A1",
+    "x": 14,
+    "y": 10
+   },
+   {
+    "id": "N3_15",
+    "led": "mcp23:A6",
+    "x": 15,
+    "y": 10
+   },
+   {
+    "id": "N3_16",
+    "led": "mcp23:B3",
+    "x": 16,
+    "y": 10
+   },
+   {
+    "id": "N3_17",
+    "led": "mcp24:A0",
+    "x": 17,
+    "y": 10
+   },
+   {
+    "id": "N3_18",
+    "led": "mcp24:A5",
+    "x": 18,
+    "y": 10
+   },
+   {
+    "id": "N3_19",
+    "led": "mcp24:B2",
+    "x": 19,
+    "y": 10
+   },
+   {
+    "id": "N3_20",
+    "led": "mcp24:B7",
+    "x": 20,
+    "y": 10
+   },
+   {
+    "id": "C4",
+    "led": "mcp25:A4",
+    "x": 0,
+    "y": 13
+   },
+   {
+    "id": "N4_1",
+    "led": "mcp25:A5",
+    "x": 1,
+    "y": 13
+   },
+   {
+    "id": "N4_2",
+    "led": "mcp25:B2",
+    "x": 2,
+    "y": 13
+   },
+   {
+    "id": "N4_3",
+    "led": "mcp25:B7",
+    "x": 3,
+    "y": 13
+   },
+   {
+    "id": "N4_4",
+    "led": "mcp26:A4",
+    "x": 4,
+    "y": 13
+   },
+   {
+    "id": "N4_5",
+    "led": "mcp26:B1",
+    "x": 5,
+    "y": 13
+   },
+   {
+    "id": "N4_6",
+    "led": "mcp26:B6",
+    "x": 6,
+    "y": 13
+   },
+   {
+    "id": "N4_7",
+    "led": "mcp27:A3",
+    "x": 7,
+    "y": 13
+   },
+   {
+    "id": "N4_8",
+    "led": "mcp27:B0",
+    "x": 8,
+    "y": 13
+   },
+   {
+    "id": "N4_9",
+    "led": "mcp27:B5",
+    "x": 9,
+    "y": 13
+   },
+   {
+    "id": "N4_10",
+    "led": "mcp28:A2",
+    "x": 10,
+    "y": 13
+   },
+   {
+    "id": "N4_11",
+    "led": "mcp28:A7",
+    "x": 11,
+    "y": 13
+   },
+   {
+    "id": "N4_12",
+    "led": "mcp28:B4",
+    "x": 12,
+    "y": 13
+   },
+   {
+    "id": "N4_13",
+    "led": "mcp29:A1",
+    "x": 13,
+    "y": 13
+   },
+   {
+    "id": "N4_14",
+    "led": "mcp29:A6",
+    "x": 14,
+    "y": 13
+   },
+   {
+    "id": "N4_15",
+    "led": "mcp29:B3",
+    "x": 15,
+    "y": 13
+   },
+   {
+    "id": "N4_16",
+    "led": "mcp30:A0",
+    "x": 16,
+    "y": 13
+   },
+   {
+    "id": "N4_17",
+    "led": "mcp30:A5",
+    "x": 17,
+    "y": 13
+   },
+   {
+    "id": "N4_18",
+    "led": "mcp30:B2",
+    "x": 18,
+    "y": 13
+   },
+   {
+    "id": "N4_19",
+    "led": "mcp30:B7",
+    "x": 19,
+    "y": 13
+   },
+   {
+    "id": "N4_20",
+    "led": "mcp31:A4",
+    "x": 20,
+    "y": 13
+   }
+  ],
+  "edges": [
+   [
+    "C0",
+    "N0_1"
+   ],
+   [
+    "N0_1",
+    "N0_2"
+   ],
+   [
+    "N0_2",
+    "N0_3"
+   ],
+   [
+    "N0_3",
+    "N0_4"
+   ],
+   [
+    "N0_4",
+    "N0_5"
+   ],
+   [
+    "N0_5",
+    "N0_6"
+   ],
+   [
+    "N0_6",
+    "N0_7"
+   ],
+   [
+    "N0_7",
+    "N0_8"
+   ],
+   [
+    "N0_8",
+    "N0_9"
+   ],
+   [
+    "N0_9",
+    "N0_10"
+   ],
+   [
+    "N0_10",
+    "N0_11"
+   ],
+   [
+    "N0_11",
+    "N0_12"
+   ],
+   [
+    "N0_12",
+    "N0_13"
+   ],
+   [
+    "N0_13",
+    "N0_14"
+   ],
+   [
+    "N0_14",
+    "N0_15"
+   ],
+   [
+    "N0_15",
+    "N0_16"
+   ],
+   [
+    "N0_16",
+    "N0_17"
+   ],
+   [
+    "N0_17",
+    "N0_18"
+   ],
+   [
+    "N0_18",
+    "N0_19"
+   ],
+   [
+    "N0_19",
+    "N0_20"
+   ],
+   [
+    "C0",
+    "C1",
+    3
+   ],
+   [
+    "C1",
+    "N1_1"
+   ],
+   [
+    "N1_1",
+    "N1_2"
+   ],
+   [
+    "N1_2",
+    "N1_3"
+   ],
+   [
+    "N1_3",
+    "N1_4"
+   ],
+   [
+    "N1_4",
+    "N1_5"
+   ],
+   [
+    "N1_5",
+    "N1_6"
+   ],
+   [
+    "N1_6",
+    "N1_7"
+   ],
+   [
+    "N1_7",
+    "N1_8"
+   ],
+   [
+    "N1_8",
+    "N1_9"
+   ],
+   [
+    "N1_9",
+    "N1_10"
+   ],
+   [
+    "N1_10",
+    "N1_11"
+   ],
+   [
+    "N1_11",
+    "N1_12"
+   ],
+   [
+    "N1_12",
+    "N1_13"
+   ],
+   [
+    "N1_13",
+    "N1_14"
+   ],
+   [
+    "N1_14",
+    "N1_15"
+   ],
+   [
+    "N1_15",
+    "N1_16"
+   ],
+   [
+    "N1_16",
+    "N1_17"
+   ],
+   [
+    "N1_17",
+    "N1_18"
+   ],
+   [
+    "N1_18",
+    "N1_19"
+   ],
+   [
+    "N1_19",
+    "N1_20"
+   ],
+   [
+    "C1",
+    "C2",
+    3
+   ],
+   [
+    "C2",
+    "N2_1"
+   ],
+   [
+    "N2_1",
+    "N2_2"
+   ],
+   [
+    "N2_2",
+    "N2_3"
+   ],
+   [
+    "N2_3",
+    "N2_4"
+   ],
+   [
+    "N2_4",
+    "N2_5"
+   ],
+   [
+    "N2_5",
+    "N2_6"
+   ],
+   [
+    "N2_6",
+    "N2_7"
+   ],
+   [
+    "N2_7",
+    "N2_8"
+   ],
+   [
+    "N2_8",
+    "N2_9"
+   ],
+   [
+    "N2_9",
+    "N2_10"
+   ],
+   [
+    "N2_10",
+    "N2_11"
+   ],
+   [
+    "N2_11",
+    "N2_12"
+   ],
+   [
+    "N2_12",
+    "N2_13"
+   ],
+   [
+    "N2_13",
+    "N2_14"
+   ],
+   [
+    "N2_14",
+    "N2_15"
+   ],
+   [
+    "N2_15",
+    "N2_16"
+   ],
+   [
+    "N2_16",
+    "N2_17"
+   ],
+   [
+    "N2_17",
+    "N2_18"
+   ],
+   [
+    "N2_18",
+    "N2_19"
+   ],
+   [
+    "N2_19",
+    "N2_20"
+   ],
+   [
+    "C2",
+    "C3",
+    3
+   ],
+   [
+    "C3",
+    "N3_1"
+   ],
+   [
+    "N3_1",
+    "N3_2"
+   ],
+   [
+    "N3_2",
+    "N3_3"
+   ],
+   [
+    "N3_3",
+    "N3_4"
+   ],
+   [
+    "N3_4",
+    "N3_5"
+   ],
+   [
+    "N3_5",
+    "N3_6"
+   ],
+   [
+    "N3_6",
+    "N3_7"
+   ],
+   [
+    "N3_7",
+    "N3_8"
+   ],
+   [
+    "N3_8",
+    "N3_9"
+   ],
+   [
+    "N3_9",
+    "N3_10"
+   ],
+   [
+    "N3_10",
+    "N3_11"
+   ],
+   [
+    "N3_11",
+    "N3_12"
+   ],
+   [
+    "N3_12",
+    "N3_13"
+   ],
+   [
+    "N3_13",
+    "N3_14"
+   ],
+   [
+    "N3_14",
+    "N3_15"
+   ],
+   [
+    "N3_15",
+    "N3_16"
+   ],
+   [
+    "N3_16",
+    "N3_17"
+   ],
+   [
+    "N3_17",
+    "N3_18"
+   ],
+   [
+    "N3_18",
+    "N3_19"
+   ],
+   [
+    "N3_19",
+    "N3_20"
+   ],
+   [
+    "C3",
+    "C4",
+    3
+   ],
+   [
+    "C4",
+    "N4_1"
+   ],
+   [
+    "N4_1",
+    "N4_2"
+   ],
+   [
+    "N4_2",
+    "N4_3"
+   ],
+   [
+    "N4_3",
+    "N4_4"
+   ],
+   [
+    "N4_4",
+    "N4_5"
+   ],
+   [
+    "N4_5",
+    "N4_6"
+   ],
+   [
+    "N4_6",
+    "N4_7"
+   ],
+   [
+    "N4_7",
+    "N4_8"
+   ],
+   [
+    "N4_8",
+    "N4_9"
+   ],
+   [
+    "N4_9",
+    "N4_10"
+   ],
+   [
+    "N4_10",
+    "N4_11"
+   ],
+   [
+    "N4_11",
+    "N4_12"
+   ],
+   [
+    "N4_12",
+    "N4_13"
+   ],
+   [
+    "N4_13",
+    "N4_14"
+   ],
+   [
+    "N4_14",
+    "N4_15"
+   ],
+   [
+    "N4_15",
+    "N4_16"
+   ],
+   [
+    "N4_16",
+    "N4_17"
+   ],
+   [
+    "N4_17",
+    "N4_18"
+   ],
+   [
+    "N4_18",
+    "N4_19"
+   ],
+   [
+    "N4_19",
+    "N4_20"
+   ]
+  ]
+ },
+ "slots": [
+  {
+   "id": "AU01",
+   "node": "N0_1",
+   "side": "U",
+   "x": 1,
+   "y": 0,
+   "sensor": "mcp0:A2",
+   "led": {
+    "pin": "mcp0:A3"
+   }
+  },
+  {
+   "id": "AD01",
+   "node": "N0_1",
+   "side": "D",
+   "x": 1,
+   "y": 2,
+   "sensor": "mcp0:A4",
+   "led": {
+    "pin": "mcp0:A5"
+   }
+  },
+  {
+   "id": "AU02",
+   "node": "N0_2",
+   "side": "U",
+   "x": 2,
+   "y": 0,
+   "sensor": "mcp0:A7",
+   "led": {
+    "pin": "mcp0:B0"
+   }
+  },
+  {
+   "id": "AD02",
+   "node": "N0_2",
+   "side": "D",
+   "x": 2,
+   "y": 2,
+   "sensor": "mcp0:B1",
+   "led": {
+    "pin": "mcp0:B2"
+   }
+  },
+  {
+   "id": "AU03",
+   "node": "N0_3",
+   "side": "U",
+   "x": 3,
+   "y": 0,
+   "sensor": "mcp0:B4",
+   "led": {
+    "pin": "mcp0:B5"
+   }
+  },
+  {
+   "id": "AD03",
+   "node": "N0_3",
+   "side": "D",
+   "x": 3,
+   "y": 2,
+   "sensor": "mcp0:B6",
+   "led": {
+    "pin": "mcp0:B7"
+   }
+  },
+  {
+   "id": "AU04",
+   "node": "N0_4",
+   "side": "U",
+   "x": 4,
+   "y": 0,
+   "sensor": "mcp1:A1",
+   "led": {
+    "pin": "mcp1:A2"
+   }
+  },
+  {
+   "id": "AD04",
+   "node": "N0_4",
+   "side": "D",
+   "x": 4,
+   "y": 2,
+   "sensor": "mcp1:A3",
+   "led": {
+    "pin": "mcp1:A4"
+   }
+  },
+  {
+   "id": "AU05",
+   "node": "N0_5",
+   "side": "U",
+   "x": 5,
+   "y": 0,
+   "sensor": "mcp1:A6",
+   "led": {
+    "pin": "mcp1:A7"
+   }
+  },
+  {
+   "id": "AD05",
+   "node": "N0_5",
+   "side": "D",
+   "x": 5,
+   "y": 2,
+   "sensor": "mcp1:B0",
+   "led": {
+    "pin": "mcp1:B1"
+   }
+  },
+  {
+   "id": "AU06",
+   "node": "N0_6",
+   "side": "U",
+   "x": 6,
+   "y": 0,
+   "sensor": "mcp1:B3",
+   "led": {
+    "pin": "mcp1:B4"
+   }
+  },
+  {
+   "id": "AD06",
+   "node": "N0_6",
+   "side": "D",
+   "x": 6,
+   "y": 2,
+   "sensor": "mcp1:B5",
+   "led": {
+    "pin": "mcp1:B6"
+   }
+  },
+  {
+   "id": "AU07",
+   "node": "N0_7",
+   "side": "U",
+   "x": 7,
+   "y": 0,
+   "sensor": "mcp2:A0",
+   "led": {
+    "pin": "mcp2:A1"
+   }
+  },
+  {
+   "id": "AD07",
+   "node": "N0_7",
+   "side": "D",
+   "x": 7,
+   "y": 2,
+   "sensor": "mcp2:A2",
+   "led": {
+    "pin": "mcp2:A3"
+   }
+  },
+  {
+   "id": "AU08",
+   "node": "N0_8",
+   "side": "U",
+   "x": 8,
+   "y": 0,
+   "sensor": "mcp2:A5",
+   "led": {
+    "pin": "mcp2:A6"
+   }
+  },
+  {
+   "id": "AD08",
+   "node": "N0_8",
+   "side": "D",
+   "x": 8,
+   "y": 2,
+   "sensor": "mcp2:A7",
+   "led": {
+    "pin": "mcp2:B0"
+   }
+  },
+  {
+   "id": "AU09",
+   "node": "N0_9",
+   "side": "U",
+   "x": 9,
+   "y": 0,
+   "sensor": "mcp2:B2",
+   "led": {
+    "pin": "mcp2:B3"
+   }
+  },
+  {
+   "id": "AD09",
+   "node": "N0_9",
+   "side": "D",
+   "x": 9,
+   "y": 2,
+   "sensor": "mcp2:B4",
+   "led": {
+    "pin": "mcp2:B5"
+   }
+  },
+  {
+   "id": "AU10",
+   "node": "N0_10",
+   "side": "U",
+   "x": 10,
+   "y": 0,
+   "sensor": "mcp2:B7",
+   "led": {
+    "pin": "mcp3:A0"
+   }
+  },
+  {
+   "id": "AD10",
+   "node": "N0_10",
+   "side": "D",
+   "x": 10,
+   "y": 2,
+   "sensor": "mcp3:A1",
+   "led": {
+    "pin": "mcp3:A2"
+   }
+  },
+  {
+   "id": "AU11",
+   "node": "N0_11",
+   "side": "U",
+   "x": 11,
+   "y": 0,
+   "sensor": "mcp3:A4",
+   "led": {
+    "pin": "mcp3:A5"
+   }
+  },
+  {
+   "id": "AD11",
+   "node": "N0_11",
+   "side": "D",
+   "x": 11,
+   "y": 2,
+   "sensor": "mcp3:A6",
+   "led": {
+    "pin": "mcp3:A7"
+   }
+  },
+  {
+   "id": "AU12",
+   "node": "N0_12",
+   "side": "U",
+   "x": 12,
+   "y": 0,
+   "sensor": "mcp3:B1",
+   "led": {
+    "pin": "mcp3:B2"
+   }
+  },
+  {
+   "id": "AD12",
+   "node": "N0_12",
+   "side": "D",
+   "x": 12,
+   "y": 2,
+   "sensor": "mcp3:B3",
+   "led": {
+    "pin": "mcp3:B4"
+   }
+  },
+  {
+   "id": "AU13",
+   "node": "N0_13",
+   "side": "U",
+   "x": 13,
+   "y": 0,
+   "sensor": "mcp3:B6",
+   "led": {
+    "pin": "mcp3:B7"
+   }
+  },
+  {
+   "id": "AD13",
+   "node": "N0_13",
+   "side": "D",
+   "x": 13,
+   "y": 2,
+   "sensor": "mcp4:A0",
+   "led": {
+    "pin": "mcp4:A1"
+   }
+  },
+  {
+   "id": "AU14",
+   "node": "N0_14",
+   "side": "U",
+   "x": 14,
+   "y": 0,
+   "sensor": "mcp4:A3",
+   "led": {
+    "pin": "mcp4:A4"
+   }
+  },
+  {
+   "id": "AD14",
+   "node": "N0_14",
+   "side": "D",
+   "x": 14,
+   "y": 2,
+   "sensor": "mcp4:A5",
+   "led": {
+    "pin": "mcp4:A6"
+   }
+  },
+  {
+   "id": "AU15",
+   "node": "N0_15",
+   "side": "U",
+   "x": 15,
+   "y": 0,
+   "sensor": "mcp4:B0",
+   "led": {
+    "pin": "mcp4:B1"
+   }
+  },
+  {
+   "id": "AD15",
+   "node": "N0_15",
+   "side": "D",
+   "x": 15,
+   "y": 2,
+   "sensor": "mcp4:B2",
+   "led": {
+    "pin": "mcp4:B3"
+   }
+  },
+  {
+   "id": "AU16",
+   "node": "N0_16",
+   "side": "U",
+   "x": 16,
+   "y": 0,
+   "sensor": "mcp4:B5",
+   "led": {
+    "pin": "mcp4:B6"
+   }
+  },
+  {
+   "id": "AD16",
+   "node": "N0_16",
+   "side": "D",
+   "x": 16,
+   "y": 2,
+   "sensor": "mcp4:B7",
+   "led": {
+    "pin": "mcp5:A0"
+   }
+  },
+  {
+   "id": "AU17",
+   "node": "N0_17",
+   "side": "U",
+   "x": 17,
+   "y": 0,
+   "sensor": "mcp5:A2",
+   "led": {
+    "pin": "mcp5:A3"
+   }
+  },
+  {
+   "id": "AD17",
+   "node": "N0_17",
+   "side": "D",
+   "x": 17,
+   "y": 2,
+   "sensor": "mcp5:A4",
+   "led": {
+    "pin": "mcp5:A5"
+   }
+  },
+  {
+   "id": "AU18",
+   "node": "N0_18",
+   "side": "U",
+   "x": 18,
+   "y": 0,
+   "sensor": "mcp5:A7",
+   "led": {
+    "pin": "mcp5:B0"
+   }
+  },
+  {
+   "id": "AD18",
+   "node": "N0_18",
+   "side": "D",
+   "x": 18,
+   "y": 2,
+   "sensor": "mcp5:B1",
+   "led": {
+    "pin": "mcp5:B2"
+   }
+  },
+  {
+   "id": "AU19",
+   "node": "N0_19",
+   "side": "U",
+   "x": 19,
+   "y": 0,
+   "sensor": "mcp5:B4",
+   "led": {
+    "pin": "mcp5:B5"
+   }
+  },
+  {
+   "id": "AD19",
+   "node": "N0_19",
+   "side": "D",
+   "x": 19,
+   "y": 2,
+   "sensor": "mcp5:B6",
+   "led": {
+    "pin": "mcp5:B7"
+   }
+  },
+  {
+   "id": "AU20",
+   "node": "N0_20",
+   "side": "U",
+   "x": 20,
+   "y": 0,
+   "sensor": "mcp6:A1",
+   "led": {
+    "pin": "mcp6:A2"
+   }
+  },
+  {
+   "id": "AD20",
+   "node": "N0_20",
+   "side": "D",
+   "x": 20,
+   "y": 2,
+   "sensor": "mcp6:A3",
+   "led": {
+    "pin": "mcp6:A4"
+   }
+  },
+  {
+   "id": "BU01",
+   "node": "N1_1",
+   "side": "U",
+   "x": 1,
+   "y": 3,
+   "sensor": "mcp6:A7",
+   "led": {
+    "pin": "mcp6:B0"
+   }
+  },
+  {
+   "id": "BD01",
+   "node": "N1_1",
+   "side": "D",
+   "x": 1,
+   "y": 5,
+   "sensor": "mcp6:B1",
+   "led": {
+    "pin": "mcp6:B2"
+   }
+  },
+  {
+   "id": "BU02",
+   "node": "N1_2",
+   "side": "U",
+   "x": 2,
+   "y": 3,
+   "sensor": "mcp6:B4",
+   "led": {
+    "pin": "mcp6:B5"
+   }
+  },
+  {
+   "id": "BD02",
+   "node": "N1_2",
+   "side": "D",
+   "x": 2,
+   "y": 5,
+   "sensor": "mcp6:B6",
+   "led": {
+    "pin": "mcp6:B7"
+   }
+  },
+  {
+   "id": "BU03",
+   "node": "N1_3",
+   "side": "U",
+   "x": 3,
+   "y": 3,
+   "sensor": "mcp7:A1",
+   "led": {
+    "pin": "mcp7:A2"
+   }
+  },
+  {
+   "id": "BD03",
+   "node": "N1_3",
+   "side": "D",
+   "x": 3,
+   "y": 5,
+   "sensor": "mcp7:A3",
+   "led": {
+    "pin": "mcp7:A4"
+   }
+  },
+  {
+   "id": "BU04",
+   "node": "N1_4",
+   "side": "U",
+   "x": 4,
+   "y": 3,
+   "sensor": "mcp7:A6",
+   "led": {
+    "pin": "mcp7:A7"
+   }
+  },
+  {
+   "id": "BD04",
+   "node": "N1_4",
+   "side": "D",
+   "x": 4,
+   "y": 5,
+   "sensor": "mcp7:B0",
+   "led": {
+    "pin": "mcp7:B1"
+   }
+  },
+  {
+   "id": "BU05",
+   "node": "N1_5",
+   "side": "U",
+   "x": 5,
+   "y": 3,
+   "sensor": "mcp7:B3",
+   "led": {
+    "pin": "mcp7:B4"
+   }
+  },
+  {
+   "id": "BD05",
+   "node": "N1_5",
+   "side": "D",
+   "x": 5,
+   "y": 5,
+   "sensor": "mcp7:B5",
+   "led": {
+    "pin": "mcp7:B6"
+   }
+  },
+  {
+   "id": "BU06",
+   "node": "N1_6",
+   "side": "U",
+   "x": 6,
+   "y": 3,
+   "sensor": "mcp8:A0",
+   "led": {
+    "pin": "mcp8:A1"
+   }
+  },
+  {
+   "id": "BD06",
+   "node": "N1_6",
+   "side": "D",
+   "x": 6,
+   "y": 5,
+   "sensor": "mcp8:A2",
+   "led": {
+    "pin": "mcp8:A3"
+   }
+  },
+  {
+   "id": "BU07",
+   "node": "N1_7",
+   "side": "U",
+   "x": 7,
+   "y": 3,
+   "sensor": "mcp8:A5",
+   "led": {
+    "pin": "mcp8:A6"
+   }
+  },
+  {
+   "id": "BD07",
+   "node": "N1_7",
+   "side": "D",
+   "x": 7,
+   "y": 5,
+   "sensor": "mcp8:A7",
+   "led": {
+    "pin": "mcp8:B0"
+   }
+  },
+  {
+   "id": "BU08",
+   "node": "N1_8",
+   "side": "U",
+   "x": 8,
+   "y": 3,
+   "sensor": "mcp8:B2",
+   "led": {
+    "pin": "mcp8:B3"
+   }
+  },
+  {
+   "id": "BD08",
+   "node": "N1_8",
+   "side": "D",
+   "x": 8,
+   "y": 5,
+   "sensor": "mcp8:B4",
+   "led": {
+    "pin": "mcp8:B5"
+   }
+  },
+  {
+   "id": "BU09",
+   "node": "N1_9",
+   "side": "U",
+   "x": 9,
+   "y": 3,
+   "sensor": "mcp8:B7",
+   "led": {
+    "pin": "mcp9:A0"
+   }
+  },
+  {
+   "id": "BD09",
+   "node": "N1_9",
+   "side": "D",
+   "x": 9,
+   "y": 5,
+   "sensor": "mcp9:A1",
+   "led": {
+    "pin": "mcp9:A2"
+   }
+  },
+  {
+   "id": "BU10",
+   "node": "N1_10",
+   "side": "U",
+   "x": 10,
+   "y": 3,
+   "sensor": "mcp9:A4",
+   "led": {
+    "pin": "mcp9:A5"
+   }
+  },
+  {
+   "id": "BD10",
+   "node": "N1_10",
+   "side": "D",
+   "x": 10,
+   "y": 5,
+   "sensor": "mcp9:A6",
+   "led": {
+    "pin": "mcp9:A7"
+   }
+  },
+  {
+   "id": "BU11",
+   "node": "N1_11",
+   "side": "U",
+   "x": 11,
+   "y": 3,
+   "sensor": "mcp9:B1",
+   "led": {
+    "pin": "mcp9:B2"
+   }
+  },
+  {
+   "id": "BD11",
+   "node": "N1_11",
+   "side": "D",
+   "x": 11,
+   "y": 5,
+   "sensor": "mcp9:B3",
+   "led": {
+    "pin": "mcp9:B4"
+   }
+  },
+  {
+   "id": "BU12",
+   "node": "N1_12",
+   "side": "U",
+   "x": 12,
+   "y": 3,
+   "sensor": "mcp9:B6",
+   "led": {
+    "pin": "mcp9:B7"
+   }
+  },
+  {
+   "id": "BD12",
+   "node": "N1_12",
+   "side": "D",
+   "x": 12,
+   "y": 5,
+   "sensor": "mcp10:A0",
+   "led": {
+    "pin": "mcp10:A1"
+   }
+  },
+  {
+   "id": "BU13",
+   "node": "N1_13",
+   "side": "U",
+   "x": 13,
+   "y": 3,
+   "sensor": "mcp10:A3",
+   "led": {
+    "pin": "mcp10:A4"
+   }
+  },
+  {
+   "id": "BD13",
+   "node": "N1_13",
+   "side": "D",
+   "x": 13,
+   "y": 5,
+   "sensor": "mcp10:A5",
+   "led": {
+    "pin": "mcp10:A6"
+   }
+  },
+  {
+   "id": "BU14",
+   "node": "N1_14",
+   "side": "U",
+   "x": 14,
+   "y": 3,
+   "sensor": "mcp10:B0",
+   "led": {
+    "pin": "mcp10:B1"
+   }
+  },
+  {
+   "id": "BD14",
+   "node": "N1_14",
+   "side": "D",
+   "x": 14,
+   "y": 5,
+   "sensor": "mcp10:B2",
+   "led": {
+    "pin": "mcp10:B3"
+   }
+  },
+  {
+   "id": "BU15",
+   "node": "N1_15",
+   "side": "U",
+   "x": 15,
+   "y": 3,
+   "sensor": "mcp10:B5",
+   "led": {
+    "pin": "mcp10:B6"
+   }
+  },
+  {
+   "id": "BD15",
+   "node": "N1_15",
+   "side": "D",
+   "x": 15,
+   "y": 5,
+   "sensor": "mcp10:B7",
+   "led": {
+    "pin": "mcp11:A0"
+   }
+  },
+  {
+   "id": "BU16",
+   "node": "N1_16",
+   "side": "U",
+   "x": 16,
+   "y": 3,
+   "sensor": "mcp11:A2",
+   "led": {
+    "pin": "mcp11:A3"
+   }
+  },
+  {
+   "id": "BD16",
+   "node": "N1_16",
+   "side": "D",
+   "x": 16,
+   "y": 5,
+   "sensor": "mcp11:A4",
+   "led": {
+    "pin": "mcp11:A5"
+   }
+  },
+  {
+   "id": "BU17",
+   "node": "N1_17",
+   "side": "U",
+   "x": 17,
+   "y": 3,
+   "sensor": "mcp11:A7",
+   "led": {
+    "pin": "mcp11:B0"
+   }
+  },
+  {
+   "id": "BD17",
+   "node": "N1_17",
+   "side": "D",
+   "x": 17,
+   "y": 5,
+   "sensor": "mcp11:B1",
+   "led": {
+    "pin": "mcp11:B2"
+   }
+  },
+  {
+   "id": "BU18",
+   "node": "N1_18",
+   "side": "U",
+   "x": 18,
+   "y": 3,
+   "sensor": "mcp11:B4",
+   "led": {
+    "pin": "mcp11:B5"
+   }
+  },
+  {
+   "id": "BD18",
+   "node": "N1_18",
+   "side": "D",
+   "x": 18,
+   "y": 5,
+   "sensor": "mcp11:B6",
+   "led": {
+    "pin": "mcp11:B7"
+   }
+  },
+  {
+   "id": "BU19",
+   "node": "N1_19",
+   "side": "U",
+   "x": 19,
+   "y": 3,
+   "sensor": "mcp12:A1",
+   "led": {
+    "pin": "mcp12:A2"
+   }
+  },
+  {
+   "id": "BD19",
+   "node": "N1_19",
+   "side": "D",
+   "x": 19,
+   "y": 5,
+   "sensor": "mcp12:A3",
+   "led": {
+    "pin": "mcp12:A4"
+   }
+  },
+  {
+   "id": "BU20",
+   "node": "N1_20",
+   "side": "U",
+   "x": 20,
+   "y": 3,
+   "sensor": "mcp12:A6",
+   "led": {
+    "pin": "mcp12:A7"
+   }
+  },
+  {
+   "id": "BD20",
+   "node": "N1_20",
+   "side": "D",
+   "x": 20,
+   "y": 5,
+   "sensor": "mcp12:B0",
+   "led": {
+    "pin": "mcp12:B1"
+   }
+  },
+  {
+   "id": "CU01",
+   "node": "N2_1",
+   "side": "U",
+   "x": 1,
+   "y": 6,
+   "sensor": "mcp12:B4",
+   "led": {
+    "pin": "mcp12:B5"
+   }
+  },
+  {
+   "id": "CD01",
+   "node": "N2_1",
+   "side": "D",
+   "x": 1,
+   "y": 8,
+   "sensor": "mcp12:B6",
+   "led": {
+    "pin": "mcp12:B7"
+   }
+  },
+  {
+   "id": "CU02",
+   "node": "N2_2",
+   "side": "U",
+   "x": 2,
+   "y": 6,
+   "sensor": "mcp13:A1",
+   "led": {
+    "pin": "mcp13:A2"
+   }
+  },
+  {
+   "id": "CD02",
+   "node": "N2_2",
+   "side": "D",
+   "x": 2,
+   "y": 8,
+   "sensor": "mcp13:A3",
+   "led": {
+    "pin": "mcp13:A4"
+   }
+  },
+  {
+   "id": "CU03",
+   "node": "N2_3",
+   "side": "U",
+   "x": 3,
+   "y": 6,
+   "sensor": "mcp13:A6",
+   "led": {
+    "pin": "mcp13:A7"
+   }
+  },
+  {
+   "id": "CD03",
+   "node": "N2_3",
+   "side": "D",
+   "x": 3,
+   "y": 8,
+   "sensor": "mcp13:B0",
+   "led": {
+    "pin": "mcp13:B1"
+   }
+  },
+  {
+   "id": "CU04",
+   "node": "N2_4",
+   "side": "U",
+   "x": 4,
+   "y": 6,
+   "sensor": "mcp13:B3",
+   "led": {
+    "pin": "mcp13:B4"
+   }
+  },
+  {
+   "id": "CD04",
+   "node": "N2_4",
+   "side": "D",
+   "x": 4,
+   "y": 8,
+   "sensor": "mcp13:B5",
+   "led": {
+    "pin": "mcp13:B6"
+   }
+  },
+  {
+   "id": "CU05",
+   "node": "N2_5",
+   "side": "U",
+   "x": 5,
+   "y": 6,
+   "sensor": "mcp14:A0",
+   "led": {
+    "pin": "mcp14:A1"
+   }
+  },
+  {
+   "id": "CD05",
+   "node": "N2_5",
+   "side": "D",
+   "x": 5,
+   "y": 8,
+   "sensor": "mcp14:A2",
+   "led": {
+    "pin": "mcp14:A3"
+   }
+  },
+  {
+   "id": "CU06",
+   "node": "N2_6",
+   "side": "U",
+   "x": 6,
+   "y": 6,
+   "sensor": "mcp14:A5",
+   "led": {
+    "pin": "mcp14:A6"
+   }
+  },
+  {
+   "id": "CD06",
+   "node": "N2_6",
+   "side": "D",
+   "x": 6,
+   "y": 8,
+   "sensor": "mcp14:A7",
+   "led": {
+    "pin": "mcp14:B0"
+   }
+  },
+  {
+   "id": "CU07",
+   "node": "N2_7",
+   "side": "U",
+   "x": 7,
+   "y": 6,
+   "sensor": "mcp14:B2",
+   "led": {
+    "pin": "mcp14:B3"
+   }
+  },
+  {
+   "id": "CD07",
+   "node": "N2_7",
+   "side": "D",
+   "x": 7,
+   "y": 8,
+   "sensor": "mcp14:B4",
+   "led": {
+    "pin": "mcp14:B5"
+   }
+  },
+  {
+   "id": "CU08",
+   "node": "N2_8",
+   "side": "U",
+   "x": 8,
+   "y": 6,
+   "sensor": "mcp14:B7",
+   "led": {
+    "pin": "mcp15:A0"
+   }
+  },
+  {
+   "id": "CD08",
+   "node": "N2_8",
+   "side": "D",
+   "x": 8,
+   "y": 8,
+   "sensor": "mcp15:A1",
+   "led": {
+    "pin": "mcp15:A2"
+   }
+  },
+  {
+   "id": "CU09",
+   "node": "N2_9",
+   "side": "U",
+   "x": 9,
+   "y": 6,
+   "sensor": "mcp15:A4",
+   "led": {
+    "pin": "mcp15:A5"
+   }
+  },
+  {
+   "id": "CD09",
+   "node": "N2_9",
+   "side": "D",
+   "x": 9,
+   "y": 8,
+   "sensor": "mcp15:A6",
+   "led": {
+    "pin": "mcp15:A7"
+   }
+  },
+  {
+   "id": "CU10",
+   "node": "N2_10",
+   "side": "U",
+   "x": 10,
+   "y": 6,
+   "sensor": "mcp15:B1",
+   "led": {
+    "pin": "mcp15:B2"
+   }
+  },
+  {
+   "id": "CD10",
+   "node": "N2_10",
+   "side": "D",
+   "x": 10,
+   "y": 8,
+   "sensor": "mcp15:B3",
+   "led": {
+    "pin": "mcp15:B4"
+   }
+  },
+  {
+   "id": "CU11",
+   "node": "N2_11",
+   "side": "U",
+   "x": 11,
+   "y": 6,
+   "sensor": "mcp15:B6",
+   "led": {
+    "pin": "mcp15:B7"
+   }
+  },
+  {
+   "id": "CD11",
+   "node": "N2_11",
+   "side": "D",
+   "x": 11,
+   "y": 8,
+   "sensor": "mcp16:A0",
+   "led": {
+    "pin": "mcp16:A1"
+   }
+  },
+  {
+   "id": "CU12",
+   "node": "N2_12",
+   "side": "U",
+   "x": 12,
+   "y": 6,
+   "sensor": "mcp16:A3",
+   "led": {
+    "pin": "mcp16:A4"
+   }
+  },
+  {
+   "id": "CD12",
+   "node": "N2_12",
+   "side": "D",
+   "x": 12,
+   "y": 8,
+   "sensor": "mcp16:A5",
+   "led": {
+    "pin": "mcp16:A6"
+   }
+  },
+  {
+   "id": "CU13",
+   "node": "N2_13",
+   "side": "U",
+   "x": 13,
+   "y": 6,
+   "sensor": "mcp16:B0",
+   "led": {
+    "pin": "mcp16:B1"
+   }
+  },
+  {
+   "id": "CD13",
+   "node": "N2_13",
+   "side": "D",
+   "x": 13,
+   "y": 8,
+   "sensor": "mcp16:B2",
+   "led": {
+    "pin": "mcp16:B3"
+   }
+  },
+  {
+   "id": "CU14",
+   "node": "N2_14",
+   "side": "U",
+   "x": 14,
+   "y": 6,
+   "sensor": "mcp16:B5",
+   "led": {
+    "pin": "mcp16:B6"
+   }
+  },
+  {
+   "id": "CD14",
+   "node": "N2_14",
+   "side": "D",
+   "x": 14,
+   "y": 8,
+   "sensor": "mcp16:B7",
+   "led": {
+    "pin": "mcp17:A0"
+   }
+  },
+  {
+   "id": "CU15",
+   "node": "N2_15",
+   "side": "U",
+   "x": 15,
+   "y": 6,
+   "sensor": "mcp17:A2",
+   "led": {
+    "pin": "mcp17:A3"
+   }
+  },
+  {
+   "id": "CD15",
+   "node": "N2_15",
+   "side": "D",
+   "x": 15,
+   "y": 8,
+   "sensor": "mcp17:A4",
+   "led": {
+    "pin": "mcp17:A5"
+   }
+  },
+  {
+   "id": "CU16",
+   "node": "N2_16",
+   "side": "U",
+   "x": 16,
+   "y": 6,
+   "sensor": "mcp17:A7",
+   "led": {
+    "pin": "mcp17:B0"
+   }
+  },
+  {
+   "id": "CD16",
+   "node": "N2_16",
+   "side": "D",
+   "x": 16,
+   "y": 8,
+   "sensor": "mcp17:B1",
+   "led": {
+    "pin": "mcp17:B2"
+   }
+  },
+  {
+   "id": "CU17",
+   "node": "N2_17",
+   "side": "U",
+   "x": 17,
+   "y": 6,
+   "sensor": "mcp17:B4",
+   "led": {
+    "pin": "mcp17:B5"
+   }
+  },
+  {
+   "id": "CD17",
+   "node": "N2_17",
+   "side": "D",
+   "x": 17,
+   "y": 8,
+   "sensor": "mcp17:B6",
+   "led": {
+    "pin": "mcp17:B7"
+   }
+  },
+  {
+   "id": "CU18",
+   "node": "N2_18",
+   "side": "U",
+   "x": 18,
+   "y": 6,
+   "sensor": "mcp18:A1",
+   "led": {
+    "pin": "mcp18:A2"
+   }
+  },
+  {
+   "id": "CD18",
+   "node": "N2_18",
+   "side": "D",
+   "x": 18,
+   "y": 8,
+   "sensor": "mcp18:A3",
+   "led": {
+    "pin": "mcp18:A4"
+   }
+  },
+  {
+   "id": "CU19",
+   "node": "N2_19",
+   "side": "U",
+   "x": 19,
+   "y": 6,
+   "sensor": "mcp18:A6",
+   "led": {
+    "pin": "mcp18:A7"
+   }
+  },
+  {
+   "id": "CD19",
+   "node": "N2_19",
+   "side": "D",
+   "x": 19,
+   "y": 8,
+   "sensor": "mcp18:B0",
+   "led": {
+    "pin": "mcp18:B1"
+   }
+  },
+  {
+   "id": "CU20",
+   "node": "N2_20",
+   "side": "U",
+   "x": 20,
+   "y": 6,
+   "sensor": "mcp18:B3",
+   "led": {
+    "pin": "mcp18:B4"
+   }
+  },
+  {
+   "id": "CD20",
+   "node": "N2_20",
+   "side": "D",
+   "x": 20,
+   "y": 8,
+   "sensor": "mcp18:B5",
+   "led": {
+    "pin": "mcp18:B6"
+   }
+  },
+  {
+   "id": "DU01",
+   "node": "N3_1",
+   "side": "U",
+   "x": 1,
+   "y": 9,
+   "sensor": "mcp19:A1",
+   "led": {
+    "pin": "mcp19:A2"
+   }
+  },
+  {
+   "id": "DD01",
+   "node": "N3_1",
+   "side": "D",
+   "x": 1,
+   "y": 11,
+   "sensor": "mcp19:A3",
+   "led": {
+    "pin": "mcp19:A4"
+   }
+  },
+  {
+   "id": "DU02",
+   "node": "N3_2",
+   "side": "U",
+   "x": 2,
+   "y": 9,
+   "sensor": "mcp19:A6",
+   "led": {
+    "pin": "mcp19:A7"
+   }
+  },
+  {
+   "id": "DD02",
+   "node": "N3_2",
+   "side": "D",
+   "x": 2,
+   "y": 11,
+   "sensor": "mcp19:B0",
+   "led": {
+    "pin": "mcp19:B1"
+   }
+  },
+  {
+   "id": "DU03",
+   "node": "N3_3",
+   "side": "U",
+   "x": 3,
+   "y": 9,
+   "sensor": "mcp19:B3",
+   "led": {
+    "pin": "mcp19:B4"
+   }
+  },
+  {
+   "id": "DD03",
+   "node": "N3_3",
+   "side": "D",
+   "x": 3,
+   "y": 11,
+   "sensor": "mcp19:B5",
+   "led": {
+    "pin": "mcp19:B6"
+   }
+  },
+  {
+   "id": "DU04",
+   "node": "N3_4",
+   "side": "U",
+   "x": 4,
+   "y": 9,
+   "sensor": "mcp20:A0",
+   "led": {
+    "pin": "mcp20:A1"
+   }
+  },
+  {
+   "id": "DD04",
+   "node": "N3_4",
+   "side": "D",
+   "x": 4,
+   "y": 11,
+   "sensor": "mcp20:A2",
+   "led": {
+    "pin": "mcp20:A3"
+   }
+  },
+  {
+   "id": "DU05",
+   "node": "N3_5",
+   "side": "U",
+   "x": 5,
+   "y": 9,
+   "sensor": "mcp20:A5",
+   "led": {
+    "pin": "mcp20:A6"
+   }
+  },
+  {
+   "id": "DD05",
+   "node": "N3_5",
+   "side": "D",
+   "x": 5,
+   "y": 11,
+   "sensor": "mcp20:A7",
+   "led": {
+    "pin": "mcp20:B0"
+   }
+  },
+  {
+   "id": "DU06",
+   "node": "N3_6",
+   "side": "U",
+   "x": 6,
+   "y": 9,
+   "sensor": "mcp20:B2",
+   "led": {
+    "pin": "mcp20:B3"
+   }
+  },
+  {
+   "id": "DD06",
+   "node": "N3_6",
+   "side": "D",
+   "x": 6,
+   "y": 11,
+   "sensor": "mcp20:B4",
+   "led": {
+    "pin": "mcp20:B5"
+   }
+  },
+  {
+   "id": "DU07",
+   "node": "N3_7",
+   "side": "U",
+   "x": 7,
+   "y": 9,
+   "sensor": "mcp20:B7",
+   "led": {
+    "pin": "mcp21:A0"
+   }
+  },
+  {
+   "id": "DD07",
+   "node": "N3_7",
+   "side": "D",
+   "x": 7,
+   "y": 11,
+   "sensor": "mcp21:A1",
+   "led": {
+    "pin": "mcp21:A2"
+   }
+  },
+  {
+   "id": "DU08",
+   "node": "N3_8",
+   "side": "U",
+   "x": 8,
+   "y": 9,
+   "sensor": "mcp21:A4",
+   "led": {
+    "pin": "mcp21:A5"
+   }
+  },
+  {
+   "id": "DD08",
+   "node": "N3_8",
+   "side": "D",
+   "x": 8,
+   "y": 11,
+   "sensor": "mcp21:A6",
+   "led": {
+    "pin": "mcp21:A7"
+   }
+  },
+  {
+   "id": "DU09",
+   "node": "N3_9",
+   "side": "U",
+   "x": 9,
+   "y": 9,
+   "sensor": "mcp21:B1",
+   "led": {
+    "pin": "mcp21:B2"
+   }
+  },
+  {
+   "id": "DD09",
+   "node": "N3_9",
+   "side": "D",
+   "x": 9,
+   "y": 11,
+   "sensor": "mcp21:B3",
+   "led": {
+    "pin": "mcp21:B4"
+   }
+  },
+  {
+   "id": "DU10",
+   "node": "N3_10",
+   "side": "U",
+   "x": 10,
+   "y": 9,
+   "sensor": "mcp21:B6",
+   "led": {
+    "pin": "mcp21:B7"
+   }
+  },
+  {
+   "id": "DD10",
+   "node": "N3_10",
+   "side": "D",
+   "x": 10,
+   "y": 11,
+   "sensor": "mcp22:A0",
+   "led": {
+    "pin": "mcp22:A1"
+   }
+  },
+  {
+   "id": "DU11",
+   "node": "N3_11",
+   "side": "U",
+   "x": 11,
+   "y": 9,
+   "sensor": "mcp22:A3",
+   "led": {
+    "pin": "mcp22:A4"
+   }
+  },
+  {
+   "id": "DD11",
+   "node": "N3_11",
+   "side": "D",
+   "x": 11,
+   "y": 11,
+   "sensor": "mcp22:A5",
+   "led": {
+    "pin": "mcp22:A6"
+   }
+  },
+  {
+   "id": "DU12",
+   "node": "N3_12",
+   "side": "U",
+   "x": 12,
+   "y": 9,
+   "sensor": "mcp22:B0",
+   "led": {
+    "pin": "mcp22:B1"
+   }
+  },
+  {
+   "id": "DD12",
+   "node": "N3_12",
+   "side": "D",
+   "x": 12,
+   "y": 11,
+   "sensor": "mcp22:B2",
+   "led": {
+    "pin": "mcp22:B3"
+   }
+  },
+  {
+   "id": "DU13",
+   "node": "N3_13",
+   "side": "U",
+   "x": 13,
+   "y": 9,
+   "sensor": "mcp22:B5",
+   "led": {
+    "pin": "mcp22:B6"
+   }
+  },
+  {
+   "id": "DD13",
+   "node": "N3_13",
+   "side": "D",
+   "x": 13,
+   "y": 11,
+   "sensor": "mcp22:B7",
+   "led": {
+    "pin": "mcp23:A0"
+   }
+  },
+  {
+   "id": "DU14",
+   "node": "N3_14",
+   "side": "U",
+   "x": 14,
+   "y": 9,
+   "sensor": "mcp23:A2",
+   "led": {
+    "pin": "mcp23:A3"
+   }
+  },
+  {
+   "id": "DD14",
+   "node": "N3_14",
+   "side": "D",
+   "x": 14,
+   "y": 11,
+   "sensor": "mcp23:A4",
+   "led": {
+    "pin": "mcp23:A5"
+   }
+  },
+  {
+   "id": "DU15",
+   "node": "N3_15",
+   "side": "U",
+   "x": 15,
+   "y": 9,
+   "sensor": "mcp23:A7",
+   "led": {
+    "pin": "mcp23:B0"
+   }
+  },
+  {
+   "id": "DD15",
+   "node": "N3_15",
+   "side": "D",
+   "x": 15,
+   "y": 11,
+   "sensor": "mcp23:B1",
+   "led": {
+    "pin": "mcp23:B2"
+   }
+  },
+  {
+   "id": "DU16",
+   "node": "N3_16",
+   "side": "U",
+   "x": 16,
+   "y": 9,
+   "sensor": "mcp23:B4",
+   "led": {
+    "pin": "mcp23:B5"
+   }
+  },
+  {
+   "id": "DD16",
+   "node": "N3_16",
+   "side": "D",
+   "x": 16,
+   "y": 11,
+   "sensor": "mcp23:B6",
+   "led": {
+    "pin": "mcp23:B7"
+   }
+  },
+  {
+   "id": "DU17",
+   "node": "N3_17",
+   "side": "U",
+   "x": 17,
+   "y": 9,
+   "sensor": "mcp24:A1",
+   "led": {
+    "pin": "mcp24:A2"
+   }
+  },
+  {
+   "id": "DD17",
+   "node": "N3_17",
+   "side": "D",
+   "x": 17,
+   "y": 11,
+   "sensor": "mcp24:A3",
+   "led": {
+    "pin": "mcp24:A4"
+   }
+  },
+  {
+   "id": "DU18",
+   "node": "N3_18",
+   "side": "U",
+   "x": 18,
+   "y": 9,
+   "sensor": "mcp24:A6",
+   "led": {
+    "pin": "mcp24:A7"
+   }
+  },
+  {
+   "id": "DD18",
+   "node": "N3_18",
+   "side": "D",
+   "x": 18,
+   "y": 11,
+   "sensor": "mcp24:B0",
+   "led": {
+    "pin": "mcp24:B1"
+   }
+  },
+  {
+   "id": "DU19",
+   "node": "N3_19",
+   "side": "U",
+   "x": 19,
+   "y": 9,
+   "sensor": "mcp24:B3",
+   "led": {
+    "pin": "mcp24:B4"
+   }
+  },
+  {
+   "id": "DD19",
+   "node": "N3_19",
+   "side": "D",
+   "x": 19,
+   "y": 11,
+   "sensor": "mcp24:B5",
+   "led": {
+    "pin": "mcp24:B6"
+   }
+  },
+  {
+   "id": "DU20",
+   "node": "N3_20",
+   "side": "U",
+   "x": 20,
+   "y": 9,
+   "sensor": "mcp25:A0",
+   "led": {
+    "pin": "mcp25:A1"
+   }
+  },
+  {
+   "id": "DD20",
+   "node": "N3_20",
+   "side": "D",
+   "x": 20,
+   "y": 11,
+   "sensor": "mcp25:A2",
+   "led": {
+    "pin": "mcp25:A3"
+   }
+  },
+  {
+   "id": "EU01",
+   "node": "N4_1",
+   "side": "U",
+   "x": 1,
+   "y": 12,
+   "sensor": "mcp25:A6",
+   "led": {
+    "pin": "mcp25:A7"
+   }
+  },
+  {
+   "id": "ED01",
+   "node": "N4_1",
+   "side": "D",
+   "x": 1,
+   "y": 14,
+   "sensor": "mcp25:B0",
+   "led": {
+    "pin": "mcp25:B1"
+   }
+  },
+  {
+   "id": "EU02",
+   "node": "N4_2",
+   "side": "U",
+   "x": 2,
+   "y": 12,
+   "sensor": "mcp25:B3",
+   "led": {
+    "pin": "mcp25:B4"
+   }
+  },
+  {
+   "id": "ED02",
+   "node": "N4_2",
+   "side": "D",
+   "x": 2,
+   "y": 14,
+   "sensor": "mcp25:B5",
+   "led": {
+    "pin": "mcp25:B6"
+   }
+  },
+  {
+   "id": "EU03",
+   "node": "N4_3",
+   "side": "U",
+   "x": 3,
+   "y": 12,
+   "sensor": "mcp26:A0",
+   "led": {
+    "pin": "mcp26:A1"
+   }
+  },
+  {
+   "id": "ED03",
+   "node": "N4_3",
+   "side": "D",
+   "x": 3,
+   "y": 14,
+   "sensor": "mcp26:A2",
+   "led": {
+    "pin": "mcp26:A3"
+   }
+  },
+  {
+   "id": "EU04",
+   "node": "N4_4",
+   "side": "U",
+   "x": 4,
+   "y": 12,
+   "sensor": "mcp26:A5",
+   "led": {
+    "pin": "mcp26:A6"
+   }
+  },
+  {
+   "id": "ED04",
+   "node": "N4_4",
+   "side": "D",
+   "x": 4,
+   "y": 14,
+   "sensor": "mcp26:A7",
+   "led": {
+    "pin": "mcp26:B0"
+   }
+  },
+  {
+   "id": "EU05",
+   "node": "N4_5",
+   "side": "U",
+   "x": 5,
+   "y": 12,
+   "sensor": "mcp26:B2",
+   "led": {
+    "pin": "mcp26:B3"
+   }
+  },
+  {
+   "id": "ED05",
+   "node": "N4_5",
+   "side": "D",
+   "x": 5,
+   "y": 14,
+   "sensor": "mcp26:B4",
+   "led": {
+    "pin": "mcp26:B5"
+   }
+  },
+  {
+   "id": "EU06",
+   "node": "N4_6",
+   "side": "U",
+   "x": 6,
+   "y": 12,
+   "sensor": "mcp26:B7",
+   "led": {
+    "pin": "mcp27:A0"
+   }
+  },
+  {
+   "id": "ED06",
+   "node": "N4_6",
+   "side": "D",
+   "x": 6,
+   "y": 14,
+   "sensor": "mcp27:A1",
+   "led": {
+    "pin": "mcp27:A2"
+   }
+  },
+  {
+   "id": "EU07",
+   "node": "N4_7",
+   "side": "U",
+   "x": 7,
+   "y": 12,
+   "sensor": "mcp27:A4",
+   "led": {
+    "pin": "mcp27:A5"
+   }
+  },
+  {
+   "id": "ED07",
+   "node": "N4_7",
+   "side": "D",
+   "x": 7,
+   "y": 14,
+   "sensor": "mcp27:A6",
+   "led": {
+    "pin": "mcp27:A7"
+   }
+  },
+  {
+   "id": "EU08",
+   "node": "N4_8",
+   "side": "U",
+   "x": 8,
+   "y": 12,
+   "sensor": "mcp27:B1",
+   "led": {
+    "pin": "mcp27:B2"
+   }
+  },
+  {
+   "id": "ED08",
+   "node": "N4_8",
+   "side": "D",
+   "x": 8,
+   "y": 14,
+   "sensor": "mcp27:B3",
+   "led": {
+    "pin": "mcp27:B4"
+   }
+  },
+  {
+   "id": "EU09",
+   "node": "N4_9",
+   "side": "U",
+   "x": 9,
+   "y": 12,
+   "sensor": "mcp27:B6",
+   "led": {
+    "pin": "mcp27:B7"
+   }
+  },
+  {
+   "id": "ED09",
+   "node": "N4_9",
+   "side": "D",
+   "x": 9,
+   "y": 14,
+   "sensor": "mcp28:A0",
+   "led": {
+    "pin": "mcp28:A1"
+   }
+  },
+  {
+   "id": "EU10",
+   "node": "N4_10",
+   "side": "U",
+   "x": 10,
+   "y": 12,
+   "sensor": "mcp28:A3",
+   "led": {
+    "pin": "mcp28:A4"
+   }
+  },
+  {
+   "id": "ED10",
+   "node": "N4_10",
+   "side": "D",
+   "x": 10,
+   "y": 14,
+   "sensor": "mcp28:A5",
+   "led": {
+    "pin": "mcp28:A6"
+   }
+  },
+  {
+   "id": "EU11",
+   "node": "N4_11",
+   "side": "U",
+   "x": 11,
+   "y": 12,
+   "sensor": "mcp28:B0",
+   "led": {
+    "pin": "mcp28:B1"
+   }
+  },
+  {
+   "id": "ED11",
+   "node": "N4_11",
+   "side": "D",
+   "x": 11,
+   "y": 14,
+   "sensor": "mcp28:B2",
+   "led": {
+    "pin": "mcp28:B3"
+   }
+  },
+  {
+   "id": "EU12",
+   "node": "N4_12",
+   "side": "U",
+   "x": 12,
+   "y": 12,
+   "sensor": "mcp28:B5",
+   "led": {
+    "pin": "mcp28:B6"
+   }
+  },
+  {
+   "id": "ED12",
+   "node": "N4_12",
+   "side": "D",
+   "x": 12,
+   "y": 14,
+   "sensor": "mcp28:B7",
+   "led": {
+    "pin": "mcp29:A0"
+   }
+  },
+  {
+   "id": "EU13",
+   "node": "N4_13",
+   "side": "U",
+   "x": 13,
+   "y": 12,
+   "sensor": "mcp29:A2",
+   "led": {
+    "pin": "mcp29:A3"
+   }
+  },
+  {
+   "id": "ED13",
+   "node": "N4_13",
+   "side": "D",
+   "x": 13,
+   "y": 14,
+   "sensor": "mcp29:A4",
+   "led": {
+    "pin": "mcp29:A5"
+   }
+  },
+  {
+   "id": "EU14",
+   "node": "N4_14",
+   "side": "U",
+   "x": 14,
+   "y": 12,
+   "sensor": "mcp29:A7",
+   "led": {
+    "pin": "mcp29:B0"
+   }
+  },
+  {
+   "id": "ED14",
+   "node": "N4_14",
+   "side": "D",
+   "x": 14,
+   "y": 14,
+   "sensor": "mcp29:B1",
+   "led": {
+    "pin": "mcp29:B2"
+   }
+  },
+  {
+   "id": "EU15",
+   "node": "N4_15",
+   "side": "U",
+   "x": 15,
+   "y": 12,
+   "sensor": "mcp29:B4",
+   "led": {
+    "pin": "mcp29:B5"
+   }
+  },
+  {
+   "id": "ED15",
+   "node": "N4_15",
+   "side": "D",
+   "x": 15,
+   "y": 14,
+   "sensor": "mcp29:B6",
+   "led": {
+    "pin": "mcp29:B7"
+   }
+  },
+  {
+   "id": "EU16",
+   "node": "N4_16",
+   "side": "U",
+   "x": 16,
+   "y": 12,
+   "sensor": "mcp30:A1",
+   "led": {
+    "pin": "mcp30:A2"
+   }
+  },
+  {
+   "id": "ED16",
+   "node": "N4_16",
+   "side": "D",
+   "x": 16,
+   "y": 14,
+   "sensor": "mcp30:A3",
+   "led": {
+    "pin": "mcp30:A4"
+   }
+  },
+  {
+   "id": "EU17",
+   "node": "N4_17",
+   "side": "U",
+   "x": 17,
+   "y": 12,
+   "sensor": "mcp30:A6",
+   "led": {
+    "pin": "mcp30:A7"
+   }
+  },
+  {
+   "id": "ED17",
+   "node": "N4_17",
+   "side": "D",
+   "x": 17,
+   "y": 14,
+   "sensor": "mcp30:B0",
+   "led": {
+    "pin": "mcp30:B1"
+   }
+  },
+  {
+   "id": "EU18",
+   "node": "N4_18",
+   "side": "U",
+   "x": 18,
+   "y": 12,
+   "sensor": "mcp30:B3",
+   "led": {
+    "pin": "mcp30:B4"
+   }
+  },
+  {
+   "id": "ED18",
+   "node": "N4_18",
+   "side": "D",
+   "x": 18,
+   "y": 14,
+   "sensor": "mcp30:B5",
+   "led": {
+    "pin": "mcp30:B6"
+   }
+  },
+  {
+   "id": "EU19",
+   "node": "N4_19",
+   "side": "U",
+   "x": 19,
+   "y": 12,
+   "sensor": "mcp31:A0",
+   "led": {
+    "pin": "mcp31:A1"
+   }
+  },
+  {
+   "id": "ED19",
+   "node": "N4_19",
+   "side": "D",
+   "x": 19,
+   "y": 14,
+   "sensor": "mcp31:A2",
+   "led": {
+    "pin": "mcp31:A3"
+   }
+  },
+  {
+   "id": "EU20",
+   "node": "N4_20",
+   "side": "U",
+   "x": 20,
+   "y": 12,
+   "sensor": "mcp31:A5",
+   "led": {
+    "pin": "mcp31:A6"
+   }
+  },
+  {
+   "id": "ED20",
+   "node": "N4_20",
+   "side": "D",
+   "x": 20,
+   "y": 14,
+   "sensor": "mcp31:A7",
+   "led": {
+    "pin": "mcp31:B0"
+   }
+  }
+ ],
+ "entrance": {
+  "sensor": "gpio:4",
+  "servo_gpio": 12,
+  "buzzer": "gpio:16"
+ },
+ "exit": {
+  "sensor": "gpio:22",
+  "servo_gpio": 13,
+  "buzzer": "gpio:11"
+ },
+ "timing": {
+  "slot_debounce_s": 0.5,
+  "gate_debounce_s": 0.2,
+  "guide_timeout_s": 120,
+  "chase_step_s": 0.12,
+  "gate_close_after_s": 2,
+  "servo_settle_s": 0.6
+ },
+ "lcd": {
+  "enabled": true,
+  "i2c_bus": 1,
+  "address": "0x27",
+  "cols": 16,
+  "rows": 2
+ }
+}

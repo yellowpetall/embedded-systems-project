@@ -1,0 +1,39 @@
+{
+  "name": "Miniature lot - 4 spots",
+  "tick_hz": 50,
+  "sensor_active_low": true,
+  "expanders": [],
+
+  "lane": {
+    "entrance": "L0",
+    "nodes": [
+      {"id": "L0", "led": "gpio:14", "x": 0, "y": 1},
+      {"id": "L1", "led": "gpio:20", "x": 1, "y": 1},
+      {"id": "L2", "led": "gpio:21", "x": 2, "y": 1}
+    ],
+    "edges": [["L0", "L1"], ["L1", "L2"]]
+  },
+
+  "side_signs": {"A": "gpio:10", "B": "gpio:9"},
+
+  "slots": [
+    {"id": "A1", "node": "L1", "side": "A", "x": 1, "y": 0, "sensor": "gpio:17", "led": {"pin": "gpio:18"}},
+    {"id": "A2", "node": "L2", "side": "A", "x": 2, "y": 0, "sensor": "gpio:27", "led": {"pin": "gpio:23"}},
+    {"id": "B1", "node": "L1", "side": "B", "x": 1, "y": 2, "sensor": "gpio:5",  "led": {"pin": "gpio:25"}},
+    {"id": "B2", "node": "L2", "side": "B", "x": 2, "y": 2, "sensor": "gpio:6",  "led": {"pin": "gpio:8"}}
+  ],
+
+  "entrance": {"sensor": "gpio:4",  "servo_gpio": 12, "buzzer": "gpio:16"},
+  "exit":     {"sensor": "gpio:22", "servo_gpio": 13, "buzzer": "gpio:11"},
+
+  "timing": {
+    "slot_debounce_s": 0.5,
+    "gate_debounce_s": 0.2,
+    "guide_timeout_s": 30,
+    "chase_step_s": 0.15,
+    "gate_close_after_s": 2,
+    "servo_settle_s": 0.6
+  },
+
+  "lcd": {"enabled": true, "i2c_bus": 1, "address": "0x27", "cols": 16, "rows": 2}
+}

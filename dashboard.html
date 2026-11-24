@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Parking</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #14161b; color: #e8e8e8;
+         display: flex; flex-direction: column; align-items: center; padding: 20px; }
+  h1 { margin: 0 0 4px; font-weight: 600; font-size: 1.5rem; }
+  #counter { font-size: 1.3rem; margin: 4px 0 10px; }
+  #counter b { font-size: 2rem; color: #4ade80; }
+  #counter.full b { color: #f87171; }
+  #bar { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+  .gate { padding: 6px 12px; border-radius: 8px; background: #30343d; font-weight: 600; }
+  .gate.open { background: #854d0e; color: #fef08a; }
+  #banner { color: #facc15; font-weight: 700; min-height: 1.4em; margin-bottom: 8px; }
+  #lot { position: relative; background: #23262e; border-radius: 12px; }
+  #lot svg { position: absolute; inset: 0; }
+  .slot { position: absolute; border-radius: 6px; display: flex; align-items: center;
+          justify-content: center; font-weight: 700; box-sizing: border-box;
+          border: 2px solid transparent; user-select: none; overflow: hidden; }
+  .f { background: #14532d; color: #bbf7d0; }
+  .o { background: #7f1d1d; color: #fecaca; }
+  .r { background: #14532d; color: #fef08a; border-color: #facc15; animation: pulse .5s infinite alternate; }
+  @keyframes pulse { to { box-shadow: 0 0 14px #facc15; } }
+  .node { position: absolute; border-radius: 50%; background: #444; transform: translate(-50%, -50%); }
+  .node.on { background: #facc15; box-shadow: 0 0 10px #facc15; }
+  .mock .slot { cursor: pointer; }
+  #controls { margin-top: 12px; display: none; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  #controls button { padding: 9px 16px; font-size: .95rem; border-radius: 8px; border: 0;
+                     background: #facc15; color: #111; cursor: pointer; font-weight: 600; }
+  #lcd { margin-top: 14px; background: #3b5d1e; color: #d9f99d; font-family: ui-monospace, monospace;
+         font-size: 1.2rem; padding: 8px 12px; border-radius: 6px; border: 6px solid #111;
+         white-space: pre; letter-spacing: 2px; }
+  #log { margin-top: 14px; width: min(560px, 95vw); font-family: ui-monospace, monospace; font-size: .8rem;
+         background: #1c1f26; padding: 10px; border-radius: 10px; color: #9ca3af; white-space: pre; overflow-x: auto; }
+</style>
+</head>
+<body>
+  <h1 id="name">Smart Parking</h1>
+  <div id="counter"><b id="free">-</b> / <span id="total">-</span> spaces free</div>
+  <div id="bar">
+    <div class="gate" id="gate-entrance">Entrance gate: closed</div>
+    <div class="gate" id="gate-exit">Exit gate: closed</div>
+  </div>
+  <div id="banner"></div>
+  <div id="lot"></div>
+  <div id="controls">
+    <button id="arrive">🚗 Car at entrance</button>
+    <button id="leave">🚙 Car at exit</button>
+    <span style="color:#9ca3af">Simulation: click a spot to park / unpark</span>
+  </div>
+  <div id="lcd"></div>
+  <div id="log"></div>
+
+<script>
+const slotEls = {}, nodeEls = {};
+let mockBound = false;
+
+async function buildLot() {
+  const L = await (await fetch('/api/layout')).json();
+  document.getElementById('name').textContent = L.name;
+  const pts = [...L.slots, ...L.nodes];
+  const minX = Math.min(...pts.map(p => p.x)), maxX = Math.max(...pts.map(p => p.x));
+  const minY = Math.min(...pts.map(p => p.y)), maxY = Math.max(...pts.map(p => p.y));
+  const cols = maxX - minX + 1, rows = maxY - minY + 1;
+  // cell size adapts: big boxes for 4 spots, small tiles for hundreds
+  const cell = Math.max(14, Math.min(110, Math.floor((window.innerWidth - 60) / cols)));
+  const pad = 12, W = cols * cell + 2 * pad, H = rows * cell + 2 * pad;
+  const lot = document.getElementById('lot');
+  lot.style.width = W + 'px'; lot.style.height = H + 'px';
+  const cx = x => pad + (x - minX + 0.5) * cell, cy = y => pad + (y - minY + 0.5) * cell;
+
+  const byId = Object.fromEntries(L.nodes.map(n => [n.id, n]));
+  let svg = `<svg width="${W}" height="${H}">`;
+  for (const [a, b] of L.edges)
+    svg += `<line x1="${cx(byId[a].x)}" y1="${cy(byId[a].y)}" x2="${cx(byId[b].x)}" y2="${cy(byId[b].y)}" stroke="#3a3f4a" stroke-width="${Math.max(2, cell / 6)}" stroke-linecap="round"/>`;
+  lot.innerHTML = svg + '</svg>';
+
+  for (const n of L.nodes) {
+    const d = document.createElement('div');
+    d.className = 'node';
+    const size = n.led ? Math.max(5, cell / 6) : 0;
+    Object.assign(d.style, {left: cx(n.x) + 'px', top: cy(n.y) + 'px', width: size + 'px', height: size + 'px'});
+    if (n.id === L.entrance) { d.title = 'Entrance'; d.style.outline = '2px solid #60a5fa'; }
+    lot.appendChild(d); nodeEls[n.id] = d;
+  }
+  for (const s of L.slots) {
+    const d = document.createElement('div');
+    d.className = 'slot f'; d.title = s.id;
+    const size = cell * 0.86;
+    Object.assign(d.style, {left: (cx(s.x) - size / 2) + 'px', top: (cy(s.y) - size / 2) + 'px',
+                            width: size + 'px', height: size + 'px', fontSize: Math.max(8, cell / 5) + 'px'});
+    if (cell >= 34) d.textContent = s.id;
+    d.addEventListener('click', () => { if (mockBound) fetch('/api/mock/slot/' + s.id, {method: 'POST'}); });
+    lot.appendChild(d); slotEls[s.id] = d;
+  }
+}
+
+async function refresh() {
+  try {
+    const s = await (await fetch('/api/status')).json();
+    document.getElementById('free').textContent = s.free;
+    document.getElementById('total').textContent = s.total;
+    document.getElementById('counter').className = s.free === 0 ? 'full' : '';
+    for (const [id, st] of Object.entries(s.slots)) {
+      const cls = 'slot ' + st;
+      if (slotEls[id] && slotEls[id].className !== cls) slotEls[id].className = cls;
+    }
+    const lit = new Set(s.lane_lit);
+    for (const [id, el] of Object.entries(nodeEls)) el.classList.toggle('on', lit.has(id));
+    for (const g of ['entrance', 'exit']) {
+      const el = document.getElementById('gate-' + g), open = s.gates[g];
+      el.className = 'gate' + (open ? ' open' : '');
+      el.textContent = (g === 'entrance' ? 'Entrance' : 'Exit') + ' gate: ' + (open ? 'OPEN' : 'closed');
+    }
+    document.getElementById('banner').textContent = s.full ? 'LOT FULL' :
+      (s.reservations.length ? 'Guiding to: ' + s.reservations.join(', ') : '');
+    document.getElementById('lcd').textContent = s.lcd.join('\n');
+    document.getElementById('log').textContent = s.log.join('\n');
+    if (s.mock && !mockBound) {
+      mockBound = true;
+      document.getElementById('controls').style.display = 'flex';
+      document.getElementById('lot').classList.add('mock');
+    }
+  } catch (e) {
+    document.getElementById('banner').textContent = 'Lost connection to the Pi...';
+  }
+}
+
+document.getElementById('arrive').onclick = () => fetch('/api/mock/entrance', {method: 'POST'});
+document.getElementById('leave').onclick = () => fetch('/api/mock/exit', {method: 'POST'});
+buildLot().then(() => { refresh(); setInterval(refresh, 300); });
+</script>
+</body>
+</html>
