@@ -1,429 +1,328 @@
-#!/usr/bin/env python3
-"""
-Smart Parking Lot with LED guidance, gates and LCD - Raspberry Pi 2 B
----------------------------------------------------------------------
-- 6 slots, each with an IR sensor and a red/green LED pair driven from ONE pin
-  (HIGH = red/occupied, LOW = green/vacant, input = both off).
-- Entrance (IR sensor or push button): if there is space, a buzzer beeps, the
-  entrance gate (servo) opens and the driver is guided to the nearest vacant
-  slot with running lane LEDs + an arrow LED + the target slot blinking green.
-  If the lot is full, the gate stays closed and a long alarm sounds.
-- Exit gate opens automatically when a slot becomes vacant (a car is leaving).
-- A 16x2 LCD shows free / occupied counts and where to park.
-- A live dashboard is served on http://<pi-ip>:5000 (open it on the laptop).
-
-Run on the Pi:      python3 parking.py
-Test on a laptop:   PARKING_MOCK=1 python3 parking.py   (no hardware needed)
-"""
-
-import os
-import threading
+import RPi.GPIO as GPIO
 import time
-from collections import deque
+import os
+import fcntl
 
-from flask import Flask, jsonify, Response
-from gpiozero import Device, DigitalInputDevice, LED, AngularServo, Buzzer
+# =====================================================================
+# 1. KONFİGÜRASYON VE PIN TANIMLARI
+# =====================================================================
 
-MOCK = os.environ.get("PARKING_MOCK") == "1"
-if MOCK:
-    from gpiozero.pins.mock import MockFactory, MockPWMPin
-    Device.pin_factory = MockFactory(pin_class=MockPWMPin)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
-# ============================ CONFIG (BCM numbers) ============================
-#            [A1]   [A2]   [A3]        <- row A (arrow LED "A")
-#   IN > L0 - L1 --- L2 --- L3
-#            [B1]   [B2]   [B3]        <- row B (arrow LED "B")
-#
-#  name: (sensor_pin, red/green_led_pin, lane_position, side)
-SLOTS = {
-    "A1": (17, 18, 1, "A"),
-    "A2": (27, 23, 2, "A"),
-    "A3": (22, 24, 3, "A"),
-    "B1": (5, 25, 1, "B"),
-    "B2": (6, 8, 2, "B"),
-    "B3": (26, 7, 3, "B"),
-}
-ENTRANCE_PIN = 4                      # 7th IR sensor OR push button to GND
-LANE_PINS = [14, 20, 21, 19]          # L0 (entrance), L1, L2, L3
-ARROW_PINS = {"A": 10, "B": 9}
-ENTRANCE_SERVO_PIN = 12
-EXIT_SERVO_PIN = 13
-ENTRANCE_BUZZER_PIN = 16
-EXIT_BUZZER_PIN = 11
+# I2C LCD Ayarları (0x27 çalışmazsa 0x3f yapın)
+I2C_ADDR = 0x27
+I2C_BUS = 1
+I2C_SLAVE = 0x0703
 
-SENSOR_ACTIVE_LOW = True   # IR modules (and buttons to GND) read LOW = detected
-SLOT_DEBOUNCE_S = 0.5
-ENTRANCE_DEBOUNCE_S = 0.2
-GUIDE_TIMEOUT_S = 30
-CHASE_STEP_S = 0.15
-TICK_S = 0.02
+LCD_CHR = 1
+LCD_CMD = 0
+LCD_LINE_1 = 0x80
+LCD_LINE_2 = 0xC0
+LCD_BACKLIGHT = 0x08
+ENABLE = 0b00000100
 
-GATE_CLOSED_ANGLE = 0
-GATE_OPEN_ANGLE = 90
-SERVO_SETTLE_S = 0.6        # time to reach the angle, then stop the signal
-ENTRANCE_CLOSE_AFTER_S = 2  # close once the entrance has been clear this long
-EXIT_OPEN_S = 6             # exit gate stays open this long
+# Kapı Sensörü ve Servo Pinleri
+GATE_TRIG_PIN = 23   # Fiziksel Pin 16
+GATE_ECHO_PIN = 24   # Fiziksel Pin 18
+SERVO_PIN = 18       # Fiziksel Pin 12
 
-# --- 16x2 character LCD ---
-LCD_MODE = "i2c"            # "i2c" | "gpio" | "none"
-LCD_I2C_ADDRESS = 0x27      # check with: i2cdetect -y 1
-LCD_COLS, LCD_ROWS = 16, 2
-LCD_GPIO_PINS = {"rs": 15, "e": 2, "data": [3, 14, 20, 21]}  # only if no backpack
-LCD_REFRESH_S = 0.3
-# ==============================================================================
+# Park Sensörleri Ortak Trigger Pini
+PARK_SHARED_TRIG = 25  # Fiziksel Pin 22
 
+# Ölçeklenebilir Park Yerleri Listesi (4 Yeşil + 4 Kırmızı LED)
+# Yeni park yeri eklemek için bu listeye yeni bir sözlük eklemeniz yeterlidir.
+parking_spots = [
+    {
+        "id": "SOL_1",
+        "distance": 1,         # Kapıya en yakın sol alt park yeri
+        "echo_pin": 17,        # Fiziksel Pin 11
+        "red_led_pin": 4,      # Fiziksel Pin 7
+        "green_led_pin": 5,    # Fiziksel Pin 29 (SOL_1 önündeki yeşil LED)
+        "is_occupied": False,
+        "detect_start_time": None
+    },
+    {
+        "id": "SAG_1",
+        "distance": 2,         # Sağ alt park yeri
+        "echo_pin": 27,        # Fiziksel Pin 13
+        "red_led_pin": 14,     # Fiziksel Pin 8
+        "green_led_pin": 6,    # Fiziksel Pin 31 (SAG_1 önündeki yeşil LED)
+        "is_occupied": False,
+        "detect_start_time": None
+    },
+    {
+        "id": "SOL_2",
+        "distance": 3,         # Sol üst park yeri
+        "echo_pin": 22,        # Fiziksel Pin 15
+        "red_led_pin": 15,     # Fiziksel Pin 10
+        "green_led_pin": 13,   # Fiziksel Pin 33 (SOL_2 önündeki yeşil LED)
+        "is_occupied": False,
+        "detect_start_time": None
+    },
+    {
+        "id": "SAG_2",
+        "distance": 4,         # Sağ üst park yeri
+        "echo_pin": 10,        # Fiziksel Pin 19
+        "red_led_pin": 12,     # Fiziksel Pin 32
+        "green_led_pin": 19,   # Fiziksel Pin 35 (SAG_2 önündeki yeşil LED)
+        "is_occupied": False,
+        "detect_start_time": None
+    }
+]
 
-class DebouncedSensor:
-    """Ignores flickers: a new state only counts after it is stable for hold_s."""
+# Eşik Değerleri
+GATE_DETECT_DISTANCE_CM = 12.0   # Kapıda araç algılama mesafesi
+SPOT_OCCUPIED_DIST_CM = 10.0     # Park yerinde araç var sayılma mesafesi
+PARK_CONFIRM_SECONDS = 5.0       # Park edildi sayılması için gereken bekleme süresi
 
-    def __init__(self, pin, hold_s):
-        self.dev = DigitalInputDevice(pin, pull_up=SENSOR_ACTIVE_LOW)
-        self.hold_s = hold_s
-        self.state = self.dev.is_active
-        self._changing_since = None
-
-    def update(self, now):
-        raw = self.dev.is_active
-        if raw == self.state:
-            self._changing_since = None
-            return False
-        if self._changing_since is None:
-            self._changing_since = now
-        if now - self._changing_since >= self.hold_s:
-            self.state = raw
-            self._changing_since = None
-            return True
-        return False
-
-
-class BicolorLED:
-    """Red + green LED on ONE pin.
-
-    Wiring:  Pi 3.3V -> GREEN -> 220R -> PIN -> 220R -> RED -> GND
-      pin HIGH  -> red on      pin LOW -> green on      pin input -> both off
-    """
-
-    def __init__(self, pin_number):
-        self.pin = Device.pin_factory.pin(pin_number)
-        self.color = None
-        self.set("off")
-
-    def set(self, color):
-        if color == self.color:
-            return                      # don't touch the pin if nothing changed
-        if color == "off":
-            self.pin.function = "input"
-            self.pin.pull = "floating"
-        else:
-            self.pin.function = "output"
-            self.pin.state = 1 if color == "red" else 0
-        self.color = color
-
-    def close(self):
-        self.set("off")
-        self.pin.close()
+# Durum Değişkenleri
+gate_is_open = False
+guiding_spot_id = None
+last_lcd_text = ("", "")
+i2c_fd = None
 
 
-class Gate:
-    """A servo barrier. Moves, then stops sending pulses so it doesn't jitter."""
+# =====================================================================
+# 2. PAKETSİZ I2C LCD FONKSİYONLARI
+# =====================================================================
 
-    def __init__(self, pin):
-        self.servo = AngularServo(pin, min_angle=0, max_angle=180,
-                                  min_pulse_width=0.0005,
-                                  max_pulse_width=0.0024)
-        self.is_open = True             # force the first close() to move it
-        self.moved_at = 0.0
-        self.close(time.monotonic())
+def i2c_write_byte(data):
+    os.write(i2c_fd, bytes([data]))
 
-    def _move(self, angle, now):
-        self.servo.angle = angle
-        self.moved_at = now
+def lcd_toggle_enable(bits):
+    time.sleep(0.0005)
+    i2c_write_byte(bits | ENABLE)
+    time.sleep(0.0005)
+    i2c_write_byte(bits & ~ENABLE)
+    time.sleep(0.0005)
 
-    def open(self, now):
-        if not self.is_open:
-            self.is_open = True
-            self._move(GATE_OPEN_ANGLE, now)
+def lcd_byte(bits, mode):
+    bits_high = mode | (bits & 0xF0) | LCD_BACKLIGHT
+    bits_low = mode | ((bits << 4) & 0xF0) | LCD_BACKLIGHT
+    i2c_write_byte(bits_high)
+    lcd_toggle_enable(bits_high)
+    i2c_write_byte(bits_low)
+    lcd_toggle_enable(bits_low)
 
-    def close(self, now):
-        if self.is_open:
-            self.is_open = False
-            self._move(GATE_CLOSED_ANGLE, now)
+def lcd_init():
+    global i2c_fd
+    i2c_fd = os.open(f"/dev/i2c-{I2C_BUS}", os.O_RDWR)
+    fcntl.ioctl(i2c_fd, I2C_SLAVE, I2C_ADDR)
+    lcd_byte(0x33, LCD_CMD)
+    lcd_byte(0x32, LCD_CMD)
+    lcd_byte(0x06, LCD_CMD)
+    lcd_byte(0x0C, LCD_CMD)
+    lcd_byte(0x28, LCD_CMD)
+    lcd_byte(0x01, LCD_CMD)
+    time.sleep(0.005)
 
-    def tick(self, now):
-        if self.servo.value is not None and now - self.moved_at > SERVO_SETTLE_S:
-            self.servo.detach()        # stop the pulses -> no humming/jitter
+def lcd_clear():
+    lcd_byte(0x01, LCD_CMD)
+    time.sleep(0.005)
 
-
-class Slot:
-    def __init__(self, name, sensor_pin, led_pin, position, side):
-        self.name, self.position, self.side = name, position, side
-        self.sensor = DebouncedSensor(sensor_pin, SLOT_DEBOUNCE_S)
-        self.led = BicolorLED(led_pin)
-
-    @property
-    def occupied(self):
-        return self.sensor.state
-
-
-class LcdDisplay:
-    """Writes to the LCD from its own thread (LCD writes are slow)."""
-
-    def __init__(self):
-        self.lines = ["", ""]
-        self.lcd = None
-        if MOCK or LCD_MODE == "none":
-            return
-        try:
-            if LCD_MODE == "i2c":
-                from RPLCD.i2c import CharLCD
-                self.lcd = CharLCD("PCF8574", LCD_I2C_ADDRESS,
-                                   cols=LCD_COLS, rows=LCD_ROWS)
-            elif LCD_MODE == "gpio":
-                from RPLCD.gpio import CharLCD
-                import RPi.GPIO as GPIO
-                p = LCD_GPIO_PINS
-                self.lcd = CharLCD(numbering_mode=GPIO.BCM, cols=LCD_COLS,
-                                   rows=LCD_ROWS, pin_rs=p["rs"], pin_e=p["e"],
-                                   pins_data=p["data"])
-            self.lcd.clear()
-        except Exception as e:
-            print(f"[LCD] disabled: {e}")
-            self.lcd = None
-
-    def show(self, line1, line2):
-        new = [line1.ljust(LCD_COLS)[:LCD_COLS], line2.ljust(LCD_COLS)[:LCD_COLS]]
-        if new == self.lines:
-            return
-        self.lines = new
-        if self.lcd:
-            try:
-                for row, text in enumerate(new):
-                    self.lcd.cursor_pos = (row, 0)
-                    self.lcd.write_string(text)
-            except OSError as e:
-                print(f"[LCD] write failed: {e}")
-        elif MOCK:
-            print(f"[LCD] |{new[0]}|  |{new[1]}|")
-
-    def close(self):
-        if self.lcd:
-            try:
-                self.lcd.close(clear=True)
-                if LCD_MODE == "i2c":
-                    self.lcd.backlight_enabled = False
-            except OSError:
-                pass
+def update_lcd(line1, line2):
+    global last_lcd_text
+    if (line1, line2) != last_lcd_text:
+        msg1 = line1.ljust(16, " ")[:16]
+        msg2 = line2.ljust(16, " ")[:16]
+        lcd_byte(LCD_LINE_1, LCD_CMD)
+        for char in msg1:
+            lcd_byte(ord(char), LCD_CHR)
+        lcd_byte(LCD_LINE_2, LCD_CMD)
+        for char in msg2:
+            lcd_byte(ord(char), LCD_CHR)
+        last_lcd_text = (line1, line2)
 
 
-class ParkingController:
-    def __init__(self):
-        self.slots = {n: Slot(n, *cfg) for n, cfg in SLOTS.items()}
-        self.entrance = DebouncedSensor(ENTRANCE_PIN, ENTRANCE_DEBOUNCE_S)
-        self.lane = [LED(p) for p in LANE_PINS]
-        self.arrows = {side: LED(p) for side, p in ARROW_PINS.items()}
-        self.entrance_gate = Gate(ENTRANCE_SERVO_PIN)
-        self.exit_gate = Gate(EXIT_SERVO_PIN)
-        self.entrance_buzzer = Buzzer(ENTRANCE_BUZZER_PIN)
-        self.exit_buzzer = Buzzer(EXIT_BUZZER_PIN)
+# =====================================================================
+# 3. DONANIM VE ALGORİTMA FONKSİYONLARI
+# =====================================================================
 
-        self.lock = threading.Lock()
-        self.now = 0.0
-        self.target = None
-        self.guide_started = 0.0
-        self.full_until = 0.0
-        self.entrance_last_seen = 0.0
-        self.exit_close_at = 0.0
-        self.log = deque(maxlen=15)
-        self._log("System started")
+def setup_hardware():
+    lcd_init()
 
-    # ---------------------------------------------------------------- logic
-    def _log(self, msg):
-        self.log.appendleft(f"{time.strftime('%H:%M:%S')}  {msg}")
+    GPIO.setup(GATE_TRIG_PIN, GPIO.OUT)
+    GPIO.setup(GATE_ECHO_PIN, GPIO.IN)
+    GPIO.setup(PARK_SHARED_TRIG, GPIO.OUT)
+    GPIO.output(GATE_TRIG_PIN, GPIO.LOW)
+    GPIO.output(PARK_SHARED_TRIG, GPIO.LOW)
 
-    def free_slots(self):
-        return [s for s in self.slots.values() if not s.occupied]
+    for spot in parking_spots:
+        GPIO.setup(spot["echo_pin"], GPIO.IN)
+        GPIO.setup(spot["red_led_pin"], GPIO.OUT)
+        GPIO.setup(spot["green_led_pin"], GPIO.OUT)
+        GPIO.output(spot["red_led_pin"], GPIO.LOW)
+        GPIO.output(spot["green_led_pin"], GPIO.LOW)
 
-    def pick_slot(self):
-        free = [s for s in self.free_slots() if s.name != self.target]
-        if not free:
-            return None
-        return min(free, key=lambda s: (s.position, s.side))
+    GPIO.setup(SERVO_PIN, GPIO.OUT)
+    servo = GPIO.PWM(SERVO_PIN, 50)
+    servo.start(0)
+    return servo
 
-    def car_at_entrance(self, now):
-        slot = self.pick_slot()
-        if slot is None:
-            self.full_until = now + 5
-            self.entrance_buzzer.beep(on_time=1.0, off_time=0.2, n=1)
-            self._log("Car at entrance - LOT FULL, gate stays closed")
-            return
-        self.target = slot.name
-        self.guide_started = now
-        self.entrance_gate.open(now)
-        self.entrance_buzzer.beep(on_time=0.1, off_time=0.1, n=2)
-        self._log(f"Car at entrance - gate open, guiding to {slot.name}")
 
-    def car_leaving(self, slot, now):
-        self.exit_gate.open(now)
-        self.exit_close_at = now + EXIT_OPEN_S
-        self.exit_buzzer.beep(on_time=0.1, off_time=0.1, n=1)
-        self._log(f"Car left {slot.name} - exit gate open")
+def measure_distance(trig_pin, echo_pin):
+    GPIO.output(trig_pin, GPIO.HIGH)
+    time.sleep(0.00001)
+    GPIO.output(trig_pin, GPIO.LOW)
 
-    def tick(self, now):
-        with self.lock:
-            self.now = now
+    timeout = time.time() + 0.04
+    pulse_start = time.time()
+    while GPIO.input(echo_pin) == 0:
+        pulse_start = time.time()
+        if pulse_start > timeout:
+            return 999.0
 
-            # 1) slot sensors
-            for slot in self.slots.values():
-                if slot.sensor.update(now):
-                    if slot.occupied:
-                        self._log(f"{slot.name} is now occupied")
-                        if slot.name == self.target:
-                            self._log(f"Car parked in {slot.name} - guidance done")
-                            self.target = None
-                    else:
-                        self._log(f"{slot.name} is now vacant")
-                        self.car_leaving(slot, now)
+    pulse_end = time.time()
+    while GPIO.input(echo_pin) == 1:
+        pulse_end = time.time()
+        if pulse_end > timeout:
+            return 999.0
 
-            # 2) entrance
-            if self.entrance.update(now) and self.entrance.state:
-                self.car_at_entrance(now)
-            if self.entrance.state:
-                self.entrance_last_seen = now
-            if (self.entrance_gate.is_open and not self.entrance.state
-                    and now - self.entrance_last_seen > ENTRANCE_CLOSE_AFTER_S):
-                self.entrance_gate.close(now)
-                self._log("Entrance gate closed")
+    distance = (pulse_end - pulse_start) * 17150
+    return round(distance, 2)
 
-            # 3) exit gate timer
-            if self.exit_gate.is_open and now >= self.exit_close_at:
-                self.exit_gate.close(now)
-                self._log("Exit gate closed")
 
-            # 4) guidance timeout
-            if self.target and now - self.guide_started > GUIDE_TIMEOUT_S:
-                self._log(f"Guidance to {self.target} timed out")
-                self.target = None
+def set_servo_angle(servo, angle):
+    duty = 2.5 + (angle / 18.0)
+    GPIO.output(SERVO_PIN, True)
+    servo.ChangeDutyCycle(duty)
+    time.sleep(0.4)
+    GPIO.output(SERVO_PIN, False)
+    servo.ChangeDutyCycle(0)
 
-            self.entrance_gate.tick(now)
-            self.exit_gate.tick(now)
-            self._render(now)
 
-    def _render(self, now):
-        blink = int(now * 6) % 2 == 0
+def open_gate(servo):
+    global gate_is_open
+    if not gate_is_open:
+        set_servo_angle(servo, 90)
+        gate_is_open = True
+        print("[KAPI] Açıldı.")
 
-        for slot in self.slots.values():
-            if slot.name == self.target:
-                slot.led.set("green" if blink else "off")
+
+def close_gate(servo):
+    global gate_is_open
+    if gate_is_open:
+        set_servo_angle(servo, 0)
+        gate_is_open = False
+        print("[KAPI] Kapandı.")
+
+
+def turn_off_all_green_leds():
+    for spot in parking_spots:
+        GPIO.output(spot["green_led_pin"], GPIO.LOW)
+
+
+def guide_to_spot(spot):
+    """Sadece hedef park yerinin önündeki yeşil LED'i yakar."""
+    turn_off_all_green_leds()
+    GPIO.output(spot["green_led_pin"], GPIO.HIGH)
+    print(f"[YONLENDIRME] {spot['id']} önündeki yeşil LED yakıldı.")
+
+
+def update_spot_status(spot, current_distance):
+    status_changed = False
+    car_present = (0 < current_distance <= SPOT_OCCUPIED_DIST_CM)
+
+    if car_present:
+        if not spot["is_occupied"]:
+            if spot["detect_start_time"] is None:
+                spot["detect_start_time"] = time.time()
+            elif (time.time() - spot["detect_start_time"]) >= PARK_CONFIRM_SECONDS:
+                spot["is_occupied"] = True
+                GPIO.output(spot["green_led_pin"], GPIO.LOW)  # Yeşil söner
+                GPIO.output(spot["red_led_pin"], GPIO.HIGH)   # Kırmızı yanar
+                status_changed = True
+                print(f"[{spot['id']}] Araç park etti. Yeşil söndü, Kırmızı yandı.")
+    else:
+        spot["detect_start_time"] = None
+        if spot["is_occupied"]:
+            spot["is_occupied"] = False
+            GPIO.output(spot["red_led_pin"], GPIO.LOW)
+            status_changed = True
+            print(f"[{spot['id']}] Araç çıkış yaptı. Park yeri boşaldı.")
+
+    return status_changed
+
+
+def get_occupancy_stats():
+    total = len(parking_spots)
+    occupied = sum(1 for spot in parking_spots if spot["is_occupied"])
+    ratio = int((occupied / total) * 100) if total > 0 else 0
+    return occupied, total, ratio
+
+
+def find_nearest_available_spot():
+    nearest_spot = None
+    for spot in parking_spots:
+        if not spot["is_occupied"]:
+            if nearest_spot is None or spot["distance"] < nearest_spot["distance"]:
+                nearest_spot = spot
+    return nearest_spot
+
+
+# =====================================================================
+# 4. ANA DÖNGÜ
+# =====================================================================
+
+servo = setup_hardware()
+set_servo_angle(servo, 0)
+print("Akıllı Otopark Sistemi Başlatıldı...")
+
+try:
+    while True:
+        # 1. Park yerlerini kontrol et
+        for spot in parking_spots:
+            dist = measure_distance(PARK_SHARED_TRIG, spot["echo_pin"])
+            changed = update_spot_status(spot, dist)
+            time.sleep(0.02)
+
+            if changed and spot["is_occupied"] and guiding_spot_id == spot["id"]:
+                turn_off_all_green_leds()
+                guiding_spot_id = None
+
+        # 2. Doluluk istatistiklerini hesapla
+        occupied, total, ratio = get_occupancy_stats()
+        is_full = (occupied == total)
+
+        # 3. Kapı sensörünü kontrol et
+        gate_dist = measure_distance(GATE_TRIG_PIN, GATE_ECHO_PIN)
+        car_at_gate = (0 < gate_dist <= GATE_DETECT_DISTANCE_CM)
+
+        if car_at_gate:
+            if is_full:
+                update_lcd("OTOPARK DOLU!", f"Doluluk: %{ratio}")
+                close_gate(servo)
             else:
-                slot.led.set("red" if slot.occupied else "green")
+                nearest_spot = find_nearest_available_spot()
+                update_lcd("HOSGELDINIZ!", f"Yer: {nearest_spot['id']}")
+                open_gate(servo)
 
-        if self.target:
-            t = self.slots[self.target]
-            step = int((now - self.guide_started) / CHASE_STEP_S) % (t.position + 1)
-            for i, led in enumerate(self.lane):
-                led.value = (i == step)
-            for side, led in self.arrows.items():
-                led.value = (side == t.side)
-        elif now < self.full_until:
-            for led in self.lane:
-                led.value = blink
-            for led in self.arrows.values():
-                led.off()
+                if guiding_spot_id != nearest_spot["id"]:
+                    guiding_spot_id = nearest_spot["id"]
+                    guide_to_spot(nearest_spot)
         else:
-            for led in self.lane + list(self.arrows.values()):
-                led.off()
+            if gate_is_open:
+                time.sleep(1.5)
+                close_gate(servo)
 
-    def run(self, stop):
-        while not stop.is_set():
-            self.tick(time.monotonic())
-            time.sleep(TICK_S)
-
-    # ------------------------------------------------------------- LCD text
-    def lcd_text(self):
-        with self.lock:
-            free = len(self.free_slots())
-            occupied = len(self.slots) - free
-            line1 = f"Free:{free} Occ:{occupied}"
-            if self.now < self.full_until:
-                line2 = "  LOT FULL :(  "
-            elif self.target:
-                line2 = f"Go to {self.target} -->"
-            elif free == 0:
-                line2 = "No free spaces"
+            if is_full:
+                update_lcd("OTOPARK DOLU!", f"Dolu: {occupied}/{total} (%{ratio})")
             else:
-                line2 = f"Total: {len(self.slots)} spaces"
-            return line1, line2
+                update_lcd(f"Doluluk: %{ratio}", f"Bos Yer: {total - occupied}/{total}")
 
-    def run_lcd(self, lcd, stop):
-        while not stop.is_set():
-            lcd.show(*self.lcd_text())
-            time.sleep(LCD_REFRESH_S)
+        time.sleep(0.1)
 
-    # ------------------------------------------------------------ dashboard
-    def snapshot(self):
-        with self.lock:
-            return {
-                "slots": {n: {"occupied": s.occupied, "position": s.position,
-                              "side": s.side, "led": s.led.color}
-                          for n, s in self.slots.items()},
-                "free": len(self.free_slots()),
-                "total": len(self.slots),
-                "target": self.target,
-                "lane": [led.is_lit for led in self.lane],
-                "arrows": {k: v.is_lit for k, v in self.arrows.items()},
-                "gates": {"entrance": self.entrance_gate.is_open,
-                          "exit": self.exit_gate.is_open},
-                "full": self.now < self.full_until,
-                "log": list(self.log),
-                "lcd": list(lcd.lines),
-                "mock": MOCK,
-            }
-
-
-# ================================ WEB SERVER =================================
-app = Flask(__name__)
-ctrl = ParkingController()
-lcd = LcdDisplay()
-
-
-@app.route("/")
-def index():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                           "dashboard.html"), encoding="utf-8") as f:
-        return Response(f.read(), mimetype="text/html")
-
-
-@app.route("/api/status")
-def status():
-    return jsonify(ctrl.snapshot())
-
-
-if MOCK:
-    def _pin(n):
-        return Device.pin_factory.pin(n)
-
-    @app.route("/api/mock/slot/<name>", methods=["POST"])
-    def mock_slot(name):
-        pin = _pin(SLOTS[name][0])
-        pin.drive_high() if pin.state == 0 else pin.drive_low()
-        return jsonify(ok=True)
-
-    @app.route("/api/mock/arrive", methods=["POST"])
-    def mock_arrive():
-        pin = _pin(ENTRANCE_PIN)
-        pin.drive_low()
-        threading.Timer(1.5, pin.drive_high).start()
-        return jsonify(ok=True)
-
-
-if __name__ == "__main__":
-    stop = threading.Event()
-    threading.Thread(target=ctrl.run, args=(stop,), daemon=True).start()
-    threading.Thread(target=ctrl.run_lcd, args=(lcd, stop), daemon=True).start()
-    print("Dashboard: http://<this-device-ip>:5000" + ("  [MOCK MODE]" if MOCK else ""))
+except KeyboardInterrupt:
+    print("\nSistem kapatılıyor...")
+finally:
+    turn_off_all_green_leds()
+    for spot in parking_spots:
+        GPIO.output(spot["red_led_pin"], GPIO.LOW)
+    servo.stop()
     try:
-        app.run(host="0.0.0.0", port=5000, threaded=True)
-    finally:
-        stop.set()
-        time.sleep(LCD_REFRESH_S)
-        lcd.close()
+        lcd_clear()
+        os.close(i2c_fd)
+    except Exception:
+        pass
+    GPIO.cleanup()
